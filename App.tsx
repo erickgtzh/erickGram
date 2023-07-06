@@ -1,16 +1,18 @@
 import React from 'react';
-import {Text, View} from 'react-native';
-import {colors} from './src/theme/colors';
-import fonts from './src/theme/fonts';
-
+import {StyleSheet, View} from 'react-native';
+import HomeScreen from './src/screens/HomeScreen/HomeScreen';
+import CommentsScreen from './src/screens/CommentsScreen/CommentsScreen';
 const App = () => {
   return (
-    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-      <Text style={{color: colors.primary, fontSize: fonts.size.xlg}}>
-        Hello World!
-      </Text>
+    <View style={styles.app}>
+      {/* <HomeScreen /> */}
+      <CommentsScreen />
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  app: {flex: 1},
+});
 
 export default App;
