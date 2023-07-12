@@ -3,6 +3,7 @@ import comments from '../../assets/data/comments.json';
 import React from 'react';
 import Comment from '../../components/Comment/Comment';
 import {colors} from '../../theme/colors';
+import Input from './Input';
 
 const CommentsScreen = () => {
   return (
@@ -12,6 +13,7 @@ const CommentsScreen = () => {
         renderItem={({item}) => <Comment comment={item} includeDetails />}
         style={styles.padding}
       />
+      <Input />
     </View>
   );
 };
