@@ -10,8 +10,11 @@
     "test": "jest"
   },
   "dependencies": {
+    "expo": "^48.0.0",
     "react": "18.2.0",
+    "react-hook-form": "^7.45.2",
     "react-native": "0.71.7",
+    "react-native-image-picker": "^5.6.0",
     "react-native-vector-icons": "^9.2.0",
     "react-native-video": "^5.2.1"
   },
