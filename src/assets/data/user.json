@@ -3,7 +3,7 @@
     "image": "https://erickgutierrez.vercel.app/img/me.jpg",
     "name": "Erick Gutierrez",
     "bio": "🧑🏻‍💻 Digital Nomad",
-    "username": "Ericknotjustdev",
+    "username": "erickgtzh",
     "posts": [
       {
         "id": "1",
@@ -60,7 +60,7 @@
         "user": {
           "id": "u1",
           "image": "https://notjustdev-dummy.s3.us-east-2.amazonaws.com/avatars/3.jpg",
-          "username": "Ericknotjustdev"
+          "username": "erickgtzh"
         },
         "nofComments": 11
       },

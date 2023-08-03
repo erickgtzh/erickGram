@@ -11,6 +11,8 @@ import {IPost} from '../../types/models';
 import DoublePressable from '../DoublePressable';
 import Carousel from '../Carousel/Carousel';
 import VideoPlayer from '../VideoPlayer/VideoPlayer';
+import {useNavigation} from '@react-navigation/native';
+import {FeedNavigationProp} from '../../navigation/types';
 
 interface IFeedPost {
   post: IPost;
@@ -20,6 +22,7 @@ interface IFeedPost {
 const FeedPost = ({post, isVisible}: IFeedPost) => {
   const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
+  const navigation = useNavigation<FeedNavigationProp>();
 
   const toggleDescriptionExpanded = () => {
     setIsDescriptionExpanded(!isDescriptionExpanded);
@@ -27,6 +30,10 @@ const FeedPost = ({post, isVisible}: IFeedPost) => {
 
   const toggleIsLiked = () => {
     setIsLiked(!isLiked);
+  };
+
+  const navigateToComments = () => {
+    navigation.navigate('Comments', {postId: post.id});
   };
 
   let content = null;
@@ -52,6 +59,10 @@ const FeedPost = ({post, isVisible}: IFeedPost) => {
     );
   }
 
+  const navigateToUser = () => {
+    navigation.navigate('UserProfile', {userId: post.user.id});
+  };
+
   return (
     <View style={styles.post}>
       {/* Header */}
@@ -62,7 +73,9 @@ const FeedPost = ({post, isVisible}: IFeedPost) => {
           }}
           style={styles.userAvatar}
         />
-        <Text style={styles.userName}>{post.user.username}</Text>
+        <Text style={styles.userName} onPress={navigateToUser}>
+          {post.user.username}
+        </Text>
         <Entypo
           name="dots-three-horizontal"
           size={16}
@@ -106,7 +119,7 @@ const FeedPost = ({post, isVisible}: IFeedPost) => {
 
         {/* Likes */}
         <Text style={styles.text}>
-          Liked by <Text style={styles.bold}>davidhdez</Text> and
+          Liked by <Text style={styles.bold}>pepito</Text> and
           <Text style={styles.bold}> {post.nofLikes} others </Text>
         </Text>
 
@@ -115,12 +128,15 @@ const FeedPost = ({post, isVisible}: IFeedPost) => {
           <Text style={styles.bold}>{post.user.username} </Text>
           {post.description}
         </Text>
-        <Text onPress={toggleDescriptionExpanded}>
+
+        <Text onPress={toggleDescriptionExpanded} style={styles.commentText}>
           {isDescriptionExpanded ? 'less' : 'more'}
         </Text>
 
         {/* Comments */}
-        <Text style={styles.text}>View all {post.nofComments} comments</Text>
+        <Text style={styles.commentText} onPress={navigateToComments}>
+          View all {post.nofComments} comments
+        </Text>
         {post.comments.map(comment => (
           <Comment comment={comment} key={comment.id} />
         ))}

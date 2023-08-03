@@ -17,7 +17,7 @@ export default StyleSheet.create({
     flexDirection: 'row',
     marginBottom: 5,
   },
-  text: {color: colors.black, lineHeight: 18},
+  text: {color: colors.black},
   bold: {color: colors.black, fontWeight: fonts.weight.bold},
   icon: {marginHorizontal: 5},
   footer: {padding: 10},
@@ -25,5 +25,5 @@ export default StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
-  commentText: {color: colors.black, flex: 1},
+  commentText: {color: colors.grey, fontSize: fonts.size.default},
 });
