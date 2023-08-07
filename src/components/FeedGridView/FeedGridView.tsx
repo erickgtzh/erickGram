@@ -20,6 +20,7 @@ const FeedGridView = ({data}: IFeedGridView) => {
       data={data}
       renderItem={({item}) => <FeedGridItem post={item} />}
       numColumns={3}
+      keyExtractor={({id}) => id}
       showsVerticalScrollIndicator={false}
       ListHeaderComponent={ProfileHeader}
       style={{flex: 1, backgroundColor: colors.white, marginHorizontal: -1}}

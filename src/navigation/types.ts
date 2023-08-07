@@ -8,12 +8,17 @@ export type RootNavigatorParamList = {
 };
 
 export type BottomTabNavigatorParamList = {
-  HomeStack: undefined;
-  Search: undefined;
-  Upload: undefined;
-  Notifications: undefined;
-  MyProfile: undefined;
+  Users: undefined;
+  Posts: undefined;
 };
+
+// export type BottomTabNavigatorParamList = {
+//   HomeStack: undefined;
+//   Search: undefined;
+//   Upload: undefined;
+//   Notifications: undefined;
+//   MyProfile: undefined;
+// };
 
 export type HomeStackNavigatorParamList = {
   Feed: undefined;

@@ -16,6 +16,7 @@ const ProfileScreen = () => {
     UserProfileNavigationProp | MyProfileNavigationProp
   >();
   const userId = route.params?.userId;
+  console.warn('id: ', userId);
   navigation.setOptions({title: user.username});
 
   return <FeedGridView data={user.posts} LisHeaderComponent={ProfileHeader} />;
