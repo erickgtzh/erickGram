@@ -4,6 +4,7 @@ import styles from './styles';
 import user from '../../assets/data/user.json';
 import React from 'react';
 import {useNavigation} from '@react-navigation/native';
+import {Auth} from 'aws-amplify';
 
 const ProfileHeader = () => {
   const navigation = useNavigation();
@@ -40,8 +41,8 @@ const ProfileHeader = () => {
         />
 
         <Button
-          text="Go back"
-          onPress={() => navigation.goBack()}
+          text="Sign Out"
+          onPress={() => Auth.signOut()}
           style={{marginLeft: 10}}
         />
       </View>
