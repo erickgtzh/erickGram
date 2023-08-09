@@ -42,7 +42,10 @@ const ProfileHeader = () => {
 
         <Button
           text="Sign Out"
-          onPress={() => Auth.signOut()}
+          onPress={() => {
+            setUser(null);
+            Auth.signOut();
+          }}
           style={{marginLeft: 10}}
         />
       </View>
