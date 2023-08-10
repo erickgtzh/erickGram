@@ -2,28 +2,30 @@ import React, {useState} from 'react';
 import {View, Text, StyleSheet, ScrollView, Alert} from 'react-native';
 import FormInput from '../components/FormInput';
 import CustomButton from '../components/CustomButton';
-import SocialSignInButtons from '../components/SocialSignInButtons';
 import {useNavigation} from '@react-navigation/core';
-import {set, useForm} from 'react-hook-form';
+import {useForm} from 'react-hook-form';
 import {ForgotPasswordNavigationProp} from '../../../types/navigation';
 import {Auth} from 'aws-amplify';
 
 type ForgotPasswordData = {
-  username: string;
+  email: string;
 };
+
+const EMAIL_REGEX =
+  /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
 const ForgotPasswordScreen = () => {
   const {control, handleSubmit} = useForm<ForgotPasswordData>();
   const [loading, setLoading] = useState(false);
   const navigation = useNavigation<ForgotPasswordNavigationProp>();
 
-  const onSendPressed = async ({username}: ForgotPasswordData) => {
+  const onSendPressed = async ({email}: ForgotPasswordData) => {
     if (loading) {
       return;
     }
     setLoading(true);
     try {
-      const response = await Auth.forgotPassword(username);
+      const response = await Auth.forgotPassword(email);
       Alert.alert(
         'Check your email',
         `The code has been sent to ${response.CodeDeliveryDetails.Destination}`,
@@ -46,16 +48,17 @@ const ForgotPasswordScreen = () => {
         <Text style={styles.title}>Reset your password</Text>
 
         <FormInput
-          name="username"
+          name="email"
           control={control}
-          placeholder="Username"
+          placeholder="Email"
           rules={{
-            required: 'Username is required',
+            required: 'Email is required',
+            pattern: {value: EMAIL_REGEX, message: 'Email is invalid'},
           }}
         />
 
         <CustomButton
-          text={loading ? 'Loading' : 'Send'}
+          text={loading ? 'Loading...' : 'Send'}
           onPress={handleSubmit(onSendPressed)}
         />
 

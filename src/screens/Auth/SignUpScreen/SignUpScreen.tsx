@@ -1,23 +1,21 @@
+import React from 'react';
 import {View, Text, StyleSheet, ScrollView, Alert} from 'react-native';
 import FormInput from '../components/FormInput';
 import CustomButton from '../components/CustomButton';
-import SocialSignInButtons from '../components/SocialSignInButtons';
 import {useNavigation} from '@react-navigation/core';
 import {useForm} from 'react-hook-form';
 import {SignUpNavigationProp} from '../../../types/navigation';
 import {colors} from '../../../theme/colors';
 import {Auth} from 'aws-amplify';
 import {useState} from 'react';
+import SocialSignInButtons from '../components/SocialSignInButtons/SocialSignInButtons';
 
 const EMAIL_REGEX =
   /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
-const USERNAME_REGEX = /^[a-zA-Z0-9_]*$/; // alphanumeric and underscore
-
 type SignUpData = {
   name: string;
   email: string;
-  username: string;
   password: string;
   passwordRepeat: string;
 };
@@ -28,23 +26,18 @@ const SignUpScreen = () => {
   const pwd = watch('password');
   const navigation = useNavigation<SignUpNavigationProp>();
 
-  const onRegisterPressed = async ({
-    name,
-    email,
-    username,
-    password,
-  }: SignUpData) => {
+  const onRegisterPressed = async ({name, email, password}: SignUpData) => {
     if (loading) {
       return;
     }
     setLoading(true);
     try {
       await Auth.signUp({
-        username,
+        username: email,
         password,
         attributes: {email, name},
       });
-      navigation.navigate('Confirm email', {username});
+      navigation.navigate('Confirm email', {email});
     } catch (error) {
       Alert.alert('Ooops', (error as Error).message);
     } finally {
@@ -87,26 +80,6 @@ const SignUpScreen = () => {
         />
 
         <FormInput
-          name="username"
-          control={control}
-          placeholder="Username"
-          rules={{
-            required: 'Username is required',
-            minLength: {
-              value: 3,
-              message: 'Username should be at least 3 characters long',
-            },
-            maxLength: {
-              value: 24,
-              message: 'Username should be max 24 characters long',
-            },
-            pattern: {
-              value: USERNAME_REGEX,
-              message: 'Username can only contain a-z, 0-9, _',
-            },
-          }}
-        />
-        <FormInput
           name="email"
           control={control}
           placeholder="Email"
@@ -140,7 +113,7 @@ const SignUpScreen = () => {
         />
 
         <CustomButton
-          text="Register"
+          text={loading ? 'Loading...' : 'Register'}
           onPress={handleSubmit(onRegisterPressed)}
         />
 

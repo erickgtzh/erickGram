@@ -1,13 +1,15 @@
 export type AmplifyDependentResourcesAttributes = {
-  auth: {
-    Instagram: {
-      AppClientID: 'string';
-      AppClientIDWeb: 'string';
-      IdentityPoolId: 'string';
-      IdentityPoolName: 'string';
-      UserPoolArn: 'string';
-      UserPoolId: 'string';
-      UserPoolName: 'string';
-    };
-  };
-};
+  "auth": {
+    "Instagram": {
+      "AppClientID": "string",
+      "AppClientIDWeb": "string",
+      "HostedUIDomain": "string",
+      "IdentityPoolId": "string",
+      "IdentityPoolName": "string",
+      "OAuthMetadata": "string",
+      "UserPoolArn": "string",
+      "UserPoolId": "string",
+      "UserPoolName": "string"
+    }
+  }
+}

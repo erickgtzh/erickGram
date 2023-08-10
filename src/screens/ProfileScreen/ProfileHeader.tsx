@@ -8,6 +8,7 @@ import {Auth} from 'aws-amplify';
 
 const ProfileHeader = () => {
   const navigation = useNavigation();
+
   return (
     <View style={styles.root}>
       <View style={styles.headerRow}>
@@ -43,7 +44,6 @@ const ProfileHeader = () => {
         <Button
           text="Sign Out"
           onPress={() => {
-            setUser(null);
             Auth.signOut();
           }}
           style={{marginLeft: 10}}
