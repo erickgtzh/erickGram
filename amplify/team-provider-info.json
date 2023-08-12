@@ -9,10 +9,20 @@
       "UnauthRoleName": "amplify-instagram-staging-224457-unauthRole",
       "StackName": "amplify-instagram-staging-224457",
       "StackId": "arn:aws:cloudformation:us-east-1:303213000759:stack/amplify-instagram-staging-224457/89c22da0-3318-11ee-b3ac-12f8f4f0e2d3",
-      "AmplifyAppId": "d2qh12z4at189g"
+      "AmplifyAppId": "d2qh12z4at189g",
+      "AuthTriggerTemplateURL": "https://s3.amazonaws.com/amplify-instagram-staging-224457-deployment/amplify-cfn-templates/auth/auth-trigger-cloudformation-template.json"
     },
     "categories": {
       "auth": {
+        "Instagram": {}
+      },
+      "function": {
+        "InstagramPostConfirmation": {
+          "deploymentBucketName": "amplify-instagram-staging-224457-deployment",
+          "s3Key": "amplify-builds/InstagramPostConfirmation-354954744a43444c6646-build.zip"
+        }
+      },
+      "api": {
         "Instagram": {}
       }
     }

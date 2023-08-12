@@ -39,6 +39,7 @@ const ProfileHeader = () => {
         <Button
           text="Edit Profile"
           onPress={() => navigation.navigate('Edit Profile')}
+          inline
         />
 
         <Button
@@ -47,6 +48,7 @@ const ProfileHeader = () => {
             Auth.signOut();
           }}
           style={{marginLeft: 10}}
+          inline
         />
       </View>
     </View>

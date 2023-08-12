@@ -1,1 +1,1 @@
-import {default} from './UserSearchScreen';
+export {default} from './UserSearchScreen';
