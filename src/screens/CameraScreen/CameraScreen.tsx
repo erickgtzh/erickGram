@@ -1,10 +1,4 @@
-import {
-  Pressable,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import {Pressable, StyleSheet, Text, View} from 'react-native';
 import React, {useEffect, useRef, useState} from 'react';
 import {
   Camera,
@@ -16,6 +10,8 @@ import {
 } from 'expo-camera';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {colors} from '../../theme/colors';
+import {useNavigation} from '@react-navigation/native';
+import {CreateNavigationProp} from '../../types/navigation';
 
 const flashModes = [
   FlashMode.off,
@@ -31,13 +27,14 @@ const flashModeToIcon = {
   [FlashMode.torch]: 'highlight',
 };
 
-const PostUploadScreen = () => {
+const CameraScreen = () => {
   const [hasPermissions, setHasPermissions] = useState<boolean | null>(null);
   const [cameraType, setCameraType] = useState(CameraType.back);
   const [flash, setFlash] = useState(FlashMode.off);
   const [isCameraReady, setIsCameraReady] = useState(false);
   const camera = useRef<Camera>(null);
   const [isRecording, setIsRecording] = useState(false);
+  const navigation = useNavigation<CreateNavigationProp>();
 
   useEffect(() => {
     const getPermission = async () => {
@@ -69,7 +66,6 @@ const PostUploadScreen = () => {
 
   const flipFlash = () => {
     const currentIndex = flashModes.indexOf(flash);
-    console.log('currentIdx ', currentIndex);
     const nextIndex =
       currentIndex !== flashModes?.length - 1
         ? flashModes[currentIndex + 1]
@@ -122,6 +118,15 @@ const PostUploadScreen = () => {
     console.warn(result);
   };
 
+  const navigateToCreateScreen = () => {
+    navigation.navigate('Create', {
+      images: [
+        'https://notjustdev-dummy.s3.us-east-2.amazonaws.com/images/1.jpg',
+        'https://notjustdev-dummy.s3.us-east-2.amazonaws.com/images/2.jpg',
+      ],
+    });
+  };
+
   return (
     <View style={styles.page}>
       <Camera
@@ -158,9 +163,18 @@ const PostUploadScreen = () => {
             />
           </Pressable>
         )}
+
         <Pressable onPress={flipCamera}>
           <MaterialIcons
             name="flip-camera-ios"
+            size={30}
+            color={colors.white}
+          />
+        </Pressable>
+
+        <Pressable onPress={navigateToCreateScreen}>
+          <MaterialIcons
+            name="arrow-forward-ios"
             size={30}
             color={colors.white}
           />
@@ -170,7 +184,7 @@ const PostUploadScreen = () => {
   );
 };
 
-export default PostUploadScreen;
+export default CameraScreen;
 
 const styles = StyleSheet.create({
   page: {

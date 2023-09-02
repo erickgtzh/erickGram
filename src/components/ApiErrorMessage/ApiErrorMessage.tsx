@@ -38,6 +38,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 18,
     margin: 20,
+    color: colors.black,
   },
   message: {
     color: colors.grey,

@@ -14,7 +14,7 @@ import ApiErrorMessage from '../../components/ApiErrorMessage/ApiErrorMessage';
 
 const HomeScreen = () => {
   const [activePostId, setActivePostId] = useState<string | null>(null);
-  const {data, loading, error} = useQuery<
+  const {data, loading, error, refetch} = useQuery<
     ListPostsQuery,
     ListPostsQueryVariables
   >(listPosts);
@@ -45,7 +45,7 @@ const HomeScreen = () => {
     );
   }
 
-  const posts = data?.listPosts?.items || [];
+  const posts = (data?.listPosts?.items || []).filter(post => !post?._deleted);
 
   return (
     <View style={styles.app}>
@@ -57,6 +57,8 @@ const HomeScreen = () => {
         showsVerticalScrollIndicator={false}
         viewabilityConfig={viewabilityConfig}
         onViewableItemsChanged={onViewableItemsChanged.current}
+        onRefresh={refetch}
+        refreshing={loading}
       />
     </View>
   );
