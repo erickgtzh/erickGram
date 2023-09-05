@@ -6,6 +6,7 @@ import HomeScreen from '../screens/HomeScreen/HomeScreen';
 import ProfileScreen from '../screens/ProfileScreen/ProfileScreen';
 import {HomeStackNavigatorParamList} from '../types/navigation';
 import UpdatePostScreen from '../screens/UpdatePostScreen/UpdatePostScreen';
+import PostLikesScreen from '../screens/PostLikesScreen/PostLikesScreen';
 
 const HomeStackNavigator = () => {
   const Stack = createNativeStackNavigator<HomeStackNavigatorParamList>();
@@ -25,6 +26,11 @@ const HomeStackNavigator = () => {
         name="UpdatePost"
         component={UpdatePostScreen}
         options={{title: 'Update Post'}}
+      />
+      <Stack.Screen
+        name="PostLikes"
+        component={PostLikesScreen}
+        options={{title: 'Post Likes'}}
       />
     </Stack.Navigator>
   );

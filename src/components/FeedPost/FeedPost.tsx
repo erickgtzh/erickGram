@@ -14,6 +14,7 @@ import {FeedNavigationProp} from '../../types/navigation';
 import {Post} from '../../API';
 import {DEFAULT_USER_IMAGE} from '../../config';
 import PostMenu from './PostMenu';
+import useLikeService from '../../services/LikeService/LikeService';
 
 interface IFeedPost {
   post: Post;
@@ -22,19 +23,23 @@ interface IFeedPost {
 
 const FeedPost = ({post, isVisible}: IFeedPost) => {
   const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
-  const [isLiked, setIsLiked] = useState(false);
+
+  const {toggleIsLiked, isLiked} = useLikeService(post);
+
+  const postLikes = post.Likes?.items?.filter(like => !like?._deleted) || [];
+
   const navigation = useNavigation<FeedNavigationProp>();
 
   const toggleDescriptionExpanded = () => {
     setIsDescriptionExpanded(!isDescriptionExpanded);
   };
 
-  const toggleIsLiked = () => {
-    setIsLiked(!isLiked);
-  };
-
   const navigateToComments = () => {
     navigation.navigate('Comments', {postId: post.id});
+  };
+
+  const navigateToLikes = () => {
+    navigation.navigate('PostLikes', {postId: post.id});
   };
 
   let content = null;
@@ -117,10 +122,21 @@ const FeedPost = ({post, isVisible}: IFeedPost) => {
         </View>
 
         {/* Likes */}
-        <Text style={styles.text}>
-          Liked by <Text style={styles.bold}>pepito</Text> and
-          <Text style={styles.bold}> {post.nofLikes} others </Text>
-        </Text>
+        {postLikes.length === 0 ? (
+          <Text style={styles.text}>Be the first to like the post</Text>
+        ) : (
+          <Text style={styles.text} onPress={navigateToLikes}>
+            Liked by{' '}
+            <Text style={styles.bold}>{postLikes[0]?.User?.username}</Text>
+            {postLikes.length > 1 && (
+              <>
+                {' '}
+                and{' '}
+                <Text style={styles.bold}>{postLikes.length - 1} others</Text>
+              </>
+            )}
+          </Text>
+        )}
 
         {/* Post Description */}
         <Text style={styles.text} numberOfLines={isDescriptionExpanded ? 0 : 3}>
