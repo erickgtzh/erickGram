@@ -2,21 +2,31 @@ import {View, Text, Image, StyleSheet, TextInput} from 'react-native';
 import React from 'react';
 import {colors} from '../../theme/colors';
 import fonts from '../../theme/fonts';
+import {DEFAULT_USER_IMAGE} from '../../config';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import useCommentService from '../../services/CommentsService/CommentsService';
 
-const Input = () => {
+interface IInput {
+  postId: string;
+}
+
+const Input = ({postId}: IInput) => {
   const [newComment, setNewComment] = React.useState('');
 
-  const onPost = () => {
-    console.log('Posting the comment...');
-    // sending the data to backend
+  const {onCreateComment} = useCommentService(postId);
+
+  const insets = useSafeAreaInsets();
+
+  const onPost = async () => {
+    onCreateComment(newComment);
     setNewComment('');
   };
 
   return (
-    <View style={styles.root}>
+    <View style={[styles.root, {paddingBottom: insets.bottom}]}>
       <Image
         source={{
-          uri: 'https://notjustdev-dummy.s3.us-east-2.amazonaws.com/avatars/2.jpg',
+          uri: DEFAULT_USER_IMAGE,
         }}
         style={styles.image}
       />
@@ -28,7 +38,9 @@ const Input = () => {
         value={newComment}
         multiline
       />
-      <Text style={styles.button} onPress={onPost}>
+      <Text
+        style={[styles.button, {paddingBottom: insets.bottom + 11}]}
+        onPress={onPost}>
         POST
       </Text>
     </View>
@@ -52,7 +64,6 @@ const styles = StyleSheet.create({
     color: colors.primary,
     position: 'absolute',
     right: 15,
-    bottom: 15,
     fontSize: fonts.size.sm,
     fontWeight: fonts.weight.full,
   },

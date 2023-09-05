@@ -10,39 +10,44 @@ import {
 import Entypo from 'react-native-vector-icons/Entypo';
 import {colors} from '../../theme/colors';
 import {useMutation} from '@apollo/client';
-import {DeletePostMutation, DeletePostMutationVariables, Post} from '../../API';
-import {deletePost} from './queries';
+import {
+  Comment,
+  DeleteCommentMutation,
+  DeleteCommentMutationVariables,
+} from '../../API';
 import {useAuthContext} from '../../contexts/AuthContext';
-import {useNavigation} from '@react-navigation/native';
-import {FeedNavigationProp} from '../../types/navigation';
+import {deleteComment} from './queries';
+import useCommentService from '../../services/CommentsService/CommentsService';
 
-interface IPostMenu {
-  post: Post;
+interface ICommentMenu {
+  comment: Comment;
 }
 
-const PostMenu = ({post}: IPostMenu) => {
+const CommentMenu = ({comment}: ICommentMenu) => {
   const {userId} = useAuthContext();
-  const isMyPost = post?.userID === userId;
-  const [doDeletePost] = useMutation<
-    DeletePostMutation,
-    DeletePostMutationVariables
-  >(deletePost, {variables: {input: {id: post.id, _version: post._version}}});
-
-  const navigation = useNavigation<FeedNavigationProp>();
+  const isMyComment = comment?.userID === userId;
+  const [doDeleteComment] = useMutation<
+    DeleteCommentMutation,
+    DeleteCommentMutationVariables
+  >(deleteComment, {
+    variables: {input: {id: comment.id, _version: comment._version}},
+  });
+  const {incrementNofComments} = useCommentService(comment.postID);
 
   const onDeleteOptionPressed = () => {
-    Alert.alert('Are you sure?', 'Deleting a post is permantent', [
+    Alert.alert('Are you sure?', 'Deleting a comment is permantent', [
       {text: 'Cancel', style: 'cancel'},
-      {text: 'Delete post', style: 'destructive', onPress: startDeletingPost},
+      {
+        text: 'Delete comment',
+        style: 'destructive',
+        onPress: startDeletingComment,
+      },
     ]);
   };
 
-  const onEditOptionPressed = () => {
-    navigation.navigate('UpdatePost', {postId: post.id});
-  };
-
-  const startDeletingPost = async () => {
-    await doDeletePost();
+  const startDeletingComment = async () => {
+    incrementNofComments(-1);
+    await doDeleteComment();
   };
 
   return (
@@ -59,15 +64,12 @@ const PostMenu = ({post}: IPostMenu) => {
         <MenuOption onSelect={() => Alert.alert('Reporting...')}>
           <Text style={styles.optionText}>Report</Text>
         </MenuOption>
-        {isMyPost && (
+        {isMyComment && (
           <>
             <MenuOption onSelect={onDeleteOptionPressed}>
               <Text style={[styles.optionText, {color: colors.error}]}>
                 Delete
               </Text>
-            </MenuOption>
-            <MenuOption onSelect={onEditOptionPressed}>
-              <Text style={styles.optionText}>Edit</Text>
             </MenuOption>
           </>
         )}
@@ -88,4 +90,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default PostMenu;
+export default CommentMenu;

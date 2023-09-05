@@ -9,23 +9,11 @@ export const createLike = gql`
       id
       userID
       postID
-      Post {
-        id
-        nofLikes
-        Likes {
-          items {
-            id
-            _deleted
-            _version
-          }
-        }
-      }
       createdAt
       updatedAt
       _version
       _deleted
       _lastChangedAt
-      __typename
     }
   }
 `;
@@ -56,11 +44,26 @@ export const likesForPostByUser = gql`
         _version
         _deleted
         _lastChangedAt
-        __typename
+
+        Post {
+          id
+          nofLikes
+          Likes {
+            items {
+              id
+              _deleted
+              _version
+            }
+            nextToken
+            startedAt
+          }
+          _version
+          _deleted
+          _lastChangedAt
+        }
       }
       nextToken
       startedAt
-      __typename
     }
   }
 `;
@@ -72,6 +75,7 @@ export const deleteLike = gql`
   ) {
     deleteLike(input: $input, condition: $condition) {
       id
+      updatedAt
       _version
       _deleted
       _lastChangedAt

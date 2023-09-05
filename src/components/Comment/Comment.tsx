@@ -1,9 +1,11 @@
 import {View, Text, StyleSheet, Image, Pressable} from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import {colors} from '../../theme/colors';
 import fonts from '../../theme/fonts';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {Comment as CommentType} from '../../API';
+import {DEFAULT_USER_IMAGE} from '../../config';
+import CommentMenu from './CommentMenu';
 
 interface ICommentProps {
   comment: CommentType;
@@ -11,12 +13,21 @@ interface ICommentProps {
 }
 
 const Comment = ({comment, includeDetails = false}: ICommentProps) => {
-  const [isLiked, setIsLiked] = React.useState<boolean>(false);
+  const [isLiked, setIsLiked] = useState<boolean>(false);
+  const [isContextMenuVisible, setContextMenuVisible] =
+    useState<boolean>(false);
+
+  const handleLongPress = () => {
+    setContextMenuVisible(true);
+  };
 
   return (
-    <View style={styles.comment}>
+    <Pressable style={styles.comment} onLongPress={handleLongPress}>
       {includeDetails && (
-        <Image source={{uri: comment.User?.image}} style={styles.avatar} />
+        <Image
+          source={{uri: comment.User?.image || DEFAULT_USER_IMAGE}}
+          style={styles.avatar}
+        />
       )}
       <View style={styles.middleColumn}>
         <Text style={styles.commentText}>
@@ -38,7 +49,8 @@ const Comment = ({comment, includeDetails = false}: ICommentProps) => {
           color={isLiked ? colors.accent : colors.black}
         />
       </Pressable>
-    </View>
+      {isContextMenuVisible && <CommentMenu comment={comment} />}
+    </Pressable>
   );
 };
 

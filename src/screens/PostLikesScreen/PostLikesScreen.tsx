@@ -20,8 +20,6 @@ const PostLikesScreen = () => {
     LikesForPostByUserQueryVariables
   >(likesForPostByUser, {variables: {postID: postId}});
 
-  console.log('data: ', data?.likesForPostByUser?.items);
-
   if (loading) {
     return (
       <View style={{paddingTop: 20}}>

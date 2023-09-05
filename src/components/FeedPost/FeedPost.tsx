@@ -28,6 +28,9 @@ const FeedPost = ({post, isVisible}: IFeedPost) => {
 
   const postLikes = post.Likes?.items?.filter(like => !like?._deleted) || [];
 
+  const postComments =
+    post.Comments?.items?.filter(like => !like?._deleted) || [];
+
   const navigation = useNavigation<FeedNavigationProp>();
 
   const toggleDescriptionExpanded = () => {
@@ -106,6 +109,7 @@ const FeedPost = ({post, isVisible}: IFeedPost) => {
             size={24}
             style={styles.icon}
             color={colors.black}
+            onPress={navigateToComments}
           />
           <Feather
             name="send"
@@ -149,9 +153,12 @@ const FeedPost = ({post, isVisible}: IFeedPost) => {
         </Text>
 
         {/* Comments */}
-        <Text style={styles.commentText} onPress={navigateToComments}>
-          View all {post.nofComments} comments
-        </Text>
+        {postComments.length >= 2 && (
+          <Text style={styles.commentText} onPress={navigateToComments}>
+            View all {post.nofComments} comments
+          </Text>
+        )}
+
         {(post.Comments?.items || []).map(
           comment => comment && <Comment comment={comment} key={comment.id} />,
         )}

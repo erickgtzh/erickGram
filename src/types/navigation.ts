@@ -54,6 +54,8 @@ export type PostLikestRouteProp = RouteProp<
   'PostLikes'
 >;
 
+export type CommentsRouteProp = RouteProp<RootNavigatorParamList, 'Comments'>;
+
 export type FeedNavigationProp = NativeStackNavigationProp<
   HomeStackNavigatorParamList,
   'Feed'

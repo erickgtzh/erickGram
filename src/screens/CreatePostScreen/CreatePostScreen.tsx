@@ -19,7 +19,7 @@ const CreatePostScreen = () => {
   const route = useRoute<CreateRouteProp>();
   const {image, images, video} = route.params;
 
-  const [doCreatePost, {data, loading, error}] = useMutation<
+  const [doCreatePost] = useMutation<
     CreatePostMutation,
     CreatePostMutationVariables
   >(createPost);
@@ -43,7 +43,7 @@ const CreatePostScreen = () => {
 
   const submit = async () => {
     try {
-      const response = await doCreatePost({
+      await doCreatePost({
         variables: {
           input: {
             image: image,

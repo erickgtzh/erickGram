@@ -44,21 +44,13 @@ const Navigation = () => {
 
   const userData = data?.getUser;
 
-  if (user === undefined || loading) {
+  if (loading || user === undefined) {
     <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
       <ActivityIndicator />
     </View>;
   }
 
   let stackScreens = null;
-
-  if (loading) {
-    return (
-      <View style={{paddingTop: 20}}>
-        <ActivityIndicator />
-      </View>
-    );
-  }
 
   if (!user) {
     stackScreens = (
