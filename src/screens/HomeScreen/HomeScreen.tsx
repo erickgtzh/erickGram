@@ -15,15 +15,37 @@ import {
   PostsByDateQueryVariables,
 } from '../../API';
 import ApiErrorMessage from '../../components/ApiErrorMessage/ApiErrorMessage';
+import {colors} from '../../theme/colors';
 
 const HomeScreen = () => {
   const [activePostId, setActivePostId] = useState<string | null>(null);
-  const {data, loading, error, refetch} = useQuery<
+  const [isFetchingMore, setIsFetchingMore] = useState(false);
+  const {data, loading, error, refetch, fetchMore} = useQuery<
     PostsByDateQuery,
     PostsByDateQueryVariables
   >(postsByDate, {
-    variables: {type: 'POST', sortDirection: ModelSortDirection.DESC},
+    variables: {
+      type: 'POST',
+      sortDirection: ModelSortDirection.DESC,
+      limit: 5,
+    },
   });
+
+  const nextToken = data?.postsByDate?.nextToken;
+
+  const loadMore = async () => {
+    if (!nextToken || isFetchingMore) {
+      return;
+    }
+
+    setIsFetchingMore(true);
+    await fetchMore({
+      variables: {
+        nextToken,
+      },
+    });
+    setIsFetchingMore(false);
+  };
 
   const viewabilityConfig = {
     itemVisiblePercentThreshold: 51,
@@ -67,13 +89,14 @@ const HomeScreen = () => {
         onViewableItemsChanged={onViewableItemsChanged.current}
         onRefresh={refetch}
         refreshing={loading}
+        onEndReached={loadMore}
       />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  app: {flex: 1},
+  app: {flex: 1, backgroundColor: colors.lightgray},
 });
 
 export default HomeScreen;

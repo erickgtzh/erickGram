@@ -5,10 +5,12 @@ import {
   ApolloProvider,
   ApolloLink,
   createHttpLink,
+  TypePolicies,
 } from '@apollo/client';
 import {AuthOptions, createAuthLink, AUTH_TYPE} from 'aws-appsync-auth-link';
 import {createSubscriptionHandshakeLink} from 'aws-appsync-subscription-link';
 import config from '../aws-exports';
+import {commentsByPost} from '../services/CommentsService/queries';
 
 interface IClient {
   children: React.ReactNode;
@@ -41,9 +43,32 @@ const link = ApolloLink.from([
   ),
 ]);
 
+const mergeList = (existing = {items: []}, incoming = {items: []}) => {
+  return {
+    ...existing,
+    ...incoming,
+    items: [...(existing.items || []), ...incoming.items],
+  };
+};
+
+const typePolicies: TypePolicies = {
+  Query: {
+    fields: {
+      commentsByPost: {
+        keyArgs: ['postID', 'createdAt', 'sortedDirection', 'filter'],
+        merge: mergeList,
+      },
+      postsByDate: {
+        keyArgs: ['type', 'createdAt', 'sortDirection', 'filter'],
+        merge: mergeList,
+      },
+    },
+  },
+};
+
 const client = new ApolloClient({
   link,
-  cache: new InMemoryCache(),
+  cache: new InMemoryCache({typePolicies}),
 });
 
 const Client = ({children}: IClient) => {

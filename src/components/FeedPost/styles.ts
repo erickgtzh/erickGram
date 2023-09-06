@@ -3,7 +3,14 @@ import {colors} from '../../theme/colors';
 import fonts from '../../theme/fonts';
 
 export default StyleSheet.create({
-  post: {flex: 1, backgroundColor: colors.white},
+  post: {
+    flex: 1,
+    backgroundColor: colors.white,
+    borderRadius: 10,
+    marginTop: 2.5,
+    marginHorizontal: 2.5,
+    marginBottom: 4,
+  },
   image: {width: '100%', aspectRatio: 1},
   header: {
     flexDirection: 'row',
