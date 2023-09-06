@@ -53,6 +53,7 @@ const CreatePostScreen = () => {
             nofComments: 0,
             nofLikes: 0,
             userID: userId,
+            type: 'POST',
           },
         },
       });

@@ -1,4 +1,4 @@
-import {View, Text, Image, StyleSheet, TextInput} from 'react-native';
+import {View, Text, Image, StyleSheet, TextInput, Alert} from 'react-native';
 import React from 'react';
 import {colors} from '../../theme/colors';
 import fonts from '../../theme/fonts';
@@ -18,6 +18,9 @@ const Input = ({postId}: IInput) => {
   const insets = useSafeAreaInsets();
 
   const onPost = async () => {
+    if (!newComment || newComment.length < 1) {
+      return Alert.alert('Comment must be at least 1 character long');
+    }
     onCreateComment(newComment);
     setNewComment('');
   };

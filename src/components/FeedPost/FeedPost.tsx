@@ -16,6 +16,10 @@ import {DEFAULT_USER_IMAGE} from '../../config';
 import PostMenu from './PostMenu';
 import useLikeService from '../../services/LikeService/LikeService';
 
+import relativeTime from 'dayjs/plugin/relativeTime';
+import dayjs from 'dayjs';
+dayjs.extend(relativeTime);
+
 interface IFeedPost {
   post: Post;
   isVisible?: boolean;
@@ -171,7 +175,9 @@ const FeedPost = ({post, isVisible}: IFeedPost) => {
         )}
 
         {/* Posted date */}
-        <Text style={styles.text}>{post.createdAt}</Text>
+        <Text style={[styles.text, {color: colors.grey}]}>
+          {dayjs(post.createdAt).fromNow()}
+        </Text>
       </View>
     </View>
   );

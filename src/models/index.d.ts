@@ -77,9 +77,10 @@ export declare const CommentLike: (new (init: ModelInit<CommentLike>) => Comment
 type EagerComment = {
   readonly [__modelMeta__]: {
     identifier: ManagedIdentifier<Comment, 'id'>;
-    readOnlyFields: 'createdAt' | 'updatedAt';
+    readOnlyFields: 'updatedAt';
   };
   readonly id: string;
+  readonly createdAt: string;
   readonly comment: string;
   readonly userID: string;
   readonly postID: string;
@@ -87,16 +88,16 @@ type EagerComment = {
   readonly User?: User | null;
   readonly Post?: Post | null;
   readonly CommentLikes?: (CommentLike | null)[] | null;
-  readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
 
 type LazyComment = {
   readonly [__modelMeta__]: {
     identifier: ManagedIdentifier<Comment, 'id'>;
-    readOnlyFields: 'createdAt' | 'updatedAt';
+    readOnlyFields: 'updatedAt';
   };
   readonly id: string;
+  readonly createdAt: string;
   readonly comment: string;
   readonly userID: string;
   readonly postID: string;
@@ -104,7 +105,6 @@ type LazyComment = {
   readonly User: AsyncItem<User | undefined>;
   readonly Post: AsyncItem<Post | undefined>;
   readonly CommentLikes: AsyncCollection<CommentLike>;
-  readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
 
@@ -117,9 +117,11 @@ export declare const Comment: (new (init: ModelInit<Comment>) => Comment) & {
 type EagerPost = {
   readonly [__modelMeta__]: {
     identifier: ManagedIdentifier<Post, 'id'>;
-    readOnlyFields: 'createdAt' | 'updatedAt';
+    readOnlyFields: 'updatedAt';
   };
   readonly id: string;
+  readonly createdAt: string;
+  readonly type: string;
   readonly description?: string | null;
   readonly image?: string | null;
   readonly images?: string[] | null;
@@ -130,16 +132,17 @@ type EagerPost = {
   readonly User?: User | null;
   readonly Likes?: (Like | null)[] | null;
   readonly Comments?: (Comment | null)[] | null;
-  readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
 
 type LazyPost = {
   readonly [__modelMeta__]: {
     identifier: ManagedIdentifier<Post, 'id'>;
-    readOnlyFields: 'createdAt' | 'updatedAt';
+    readOnlyFields: 'updatedAt';
   };
   readonly id: string;
+  readonly createdAt: string;
+  readonly type: string;
   readonly description?: string | null;
   readonly image?: string | null;
   readonly images?: string[] | null;
@@ -150,7 +153,6 @@ type LazyPost = {
   readonly User: AsyncItem<User | undefined>;
   readonly Likes: AsyncCollection<Like>;
   readonly Comments: AsyncCollection<Comment>;
-  readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
 

@@ -1,5 +1,5 @@
 /* tslint:disable */
-/* eslint-disable */
+
 // this is an auto generated file. This will be overwritten
 
 export const getLike = /* GraphQL */ `
@@ -48,6 +48,8 @@ export const getLike = /* GraphQL */ `
       }
       Post {
         id
+        createdAt
+        type
         description
         image
         images
@@ -83,7 +85,6 @@ export const getLike = /* GraphQL */ `
           startedAt
           __typename
         }
-        createdAt
         updatedAt
         _version
         _deleted
@@ -130,6 +131,8 @@ export const listLikes = /* GraphQL */ `
         }
         Post {
           id
+          createdAt
+          type
           description
           image
           images
@@ -137,7 +140,6 @@ export const listLikes = /* GraphQL */ `
           nofComments
           nofLikes
           userID
-          createdAt
           updatedAt
           _version
           _deleted
@@ -194,6 +196,8 @@ export const syncLikes = /* GraphQL */ `
         }
         Post {
           id
+          createdAt
+          type
           description
           image
           images
@@ -201,7 +205,6 @@ export const syncLikes = /* GraphQL */ `
           nofComments
           nofLikes
           userID
-          createdAt
           updatedAt
           _version
           _deleted
@@ -260,6 +263,8 @@ export const likesByUserID = /* GraphQL */ `
         }
         Post {
           id
+          createdAt
+          type
           description
           image
           images
@@ -267,7 +272,6 @@ export const likesByUserID = /* GraphQL */ `
           nofComments
           nofLikes
           userID
-          createdAt
           updatedAt
           _version
           _deleted
@@ -328,6 +332,8 @@ export const likesForPostByUser = /* GraphQL */ `
         }
         Post {
           id
+          createdAt
+          type
           description
           image
           images
@@ -335,7 +341,6 @@ export const likesForPostByUser = /* GraphQL */ `
           nofComments
           nofLikes
           userID
-          createdAt
           updatedAt
           _version
           _deleted
@@ -401,6 +406,7 @@ export const getCommentLike = /* GraphQL */ `
       }
       Comment {
         id
+        createdAt
         comment
         userID
         postID
@@ -425,6 +431,8 @@ export const getCommentLike = /* GraphQL */ `
         }
         Post {
           id
+          createdAt
+          type
           description
           image
           images
@@ -432,7 +440,6 @@ export const getCommentLike = /* GraphQL */ `
           nofComments
           nofLikes
           userID
-          createdAt
           updatedAt
           _version
           _deleted
@@ -444,7 +451,6 @@ export const getCommentLike = /* GraphQL */ `
           startedAt
           __typename
         }
-        createdAt
         updatedAt
         _version
         _deleted
@@ -491,11 +497,11 @@ export const listCommentLikes = /* GraphQL */ `
         }
         Comment {
           id
+          createdAt
           comment
           userID
           postID
           nofLikes
-          createdAt
           updatedAt
           _version
           _deleted
@@ -552,11 +558,11 @@ export const syncCommentLikes = /* GraphQL */ `
         }
         Comment {
           id
+          createdAt
           comment
           userID
           postID
           nofLikes
-          createdAt
           updatedAt
           _version
           _deleted
@@ -615,11 +621,11 @@ export const commentLikesByUserID = /* GraphQL */ `
         }
         Comment {
           id
+          createdAt
           comment
           userID
           postID
           nofLikes
-          createdAt
           updatedAt
           _version
           _deleted
@@ -680,11 +686,11 @@ export const likesForCommentByUser = /* GraphQL */ `
         }
         Comment {
           id
+          createdAt
           comment
           userID
           postID
           nofLikes
-          createdAt
           updatedAt
           _version
           _deleted
@@ -708,6 +714,7 @@ export const getComment = /* GraphQL */ `
   query GetComment($id: ID!) {
     getComment(id: $id) {
       id
+      createdAt
       comment
       userID
       postID
@@ -752,6 +759,8 @@ export const getComment = /* GraphQL */ `
       }
       Post {
         id
+        createdAt
+        type
         description
         image
         images
@@ -787,7 +796,6 @@ export const getComment = /* GraphQL */ `
           startedAt
           __typename
         }
-        createdAt
         updatedAt
         _version
         _deleted
@@ -810,7 +818,6 @@ export const getComment = /* GraphQL */ `
         startedAt
         __typename
       }
-      createdAt
       updatedAt
       _version
       _deleted
@@ -828,6 +835,7 @@ export const listComments = /* GraphQL */ `
     listComments(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
+        createdAt
         comment
         userID
         postID
@@ -852,6 +860,8 @@ export const listComments = /* GraphQL */ `
         }
         Post {
           id
+          createdAt
+          type
           description
           image
           images
@@ -859,7 +869,6 @@ export const listComments = /* GraphQL */ `
           nofComments
           nofLikes
           userID
-          createdAt
           updatedAt
           _version
           _deleted
@@ -871,7 +880,6 @@ export const listComments = /* GraphQL */ `
           startedAt
           __typename
         }
-        createdAt
         updatedAt
         _version
         _deleted
@@ -899,6 +907,7 @@ export const syncComments = /* GraphQL */ `
     ) {
       items {
         id
+        createdAt
         comment
         userID
         postID
@@ -923,6 +932,8 @@ export const syncComments = /* GraphQL */ `
         }
         Post {
           id
+          createdAt
+          type
           description
           image
           images
@@ -930,7 +941,6 @@ export const syncComments = /* GraphQL */ `
           nofComments
           nofLikes
           userID
-          createdAt
           updatedAt
           _version
           _deleted
@@ -942,7 +952,6 @@ export const syncComments = /* GraphQL */ `
           startedAt
           __typename
         }
-        createdAt
         updatedAt
         _version
         _deleted
@@ -972,6 +981,7 @@ export const commentsByUserID = /* GraphQL */ `
     ) {
       items {
         id
+        createdAt
         comment
         userID
         postID
@@ -996,6 +1006,8 @@ export const commentsByUserID = /* GraphQL */ `
         }
         Post {
           id
+          createdAt
+          type
           description
           image
           images
@@ -1003,7 +1015,6 @@ export const commentsByUserID = /* GraphQL */ `
           nofComments
           nofLikes
           userID
-          createdAt
           updatedAt
           _version
           _deleted
@@ -1015,7 +1026,6 @@ export const commentsByUserID = /* GraphQL */ `
           startedAt
           __typename
         }
-        createdAt
         updatedAt
         _version
         _deleted
@@ -1031,6 +1041,7 @@ export const commentsByUserID = /* GraphQL */ `
 export const commentsByPost = /* GraphQL */ `
   query CommentsByPost(
     $postID: ID!
+    $createdAt: ModelStringKeyConditionInput
     $sortDirection: ModelSortDirection
     $filter: ModelCommentFilterInput
     $limit: Int
@@ -1038,6 +1049,7 @@ export const commentsByPost = /* GraphQL */ `
   ) {
     commentsByPost(
       postID: $postID
+      createdAt: $createdAt
       sortDirection: $sortDirection
       filter: $filter
       limit: $limit
@@ -1045,6 +1057,7 @@ export const commentsByPost = /* GraphQL */ `
     ) {
       items {
         id
+        createdAt
         comment
         userID
         postID
@@ -1069,6 +1082,8 @@ export const commentsByPost = /* GraphQL */ `
         }
         Post {
           id
+          createdAt
+          type
           description
           image
           images
@@ -1076,7 +1091,6 @@ export const commentsByPost = /* GraphQL */ `
           nofComments
           nofLikes
           userID
-          createdAt
           updatedAt
           _version
           _deleted
@@ -1088,7 +1102,6 @@ export const commentsByPost = /* GraphQL */ `
           startedAt
           __typename
         }
-        createdAt
         updatedAt
         _version
         _deleted
@@ -1105,6 +1118,8 @@ export const getPost = /* GraphQL */ `
   query GetPost($id: ID!) {
     getPost(id: $id) {
       id
+      createdAt
+      type
       description
       image
       images
@@ -1169,11 +1184,11 @@ export const getPost = /* GraphQL */ `
       Comments {
         items {
           id
+          createdAt
           comment
           userID
           postID
           nofLikes
-          createdAt
           updatedAt
           _version
           _deleted
@@ -1184,7 +1199,6 @@ export const getPost = /* GraphQL */ `
         startedAt
         __typename
       }
-      createdAt
       updatedAt
       _version
       _deleted
@@ -1202,6 +1216,8 @@ export const listPosts = /* GraphQL */ `
     listPosts(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
+        createdAt
+        type
         description
         image
         images
@@ -1237,7 +1253,6 @@ export const listPosts = /* GraphQL */ `
           startedAt
           __typename
         }
-        createdAt
         updatedAt
         _version
         _deleted
@@ -1265,6 +1280,8 @@ export const syncPosts = /* GraphQL */ `
     ) {
       items {
         id
+        createdAt
+        type
         description
         image
         images
@@ -1300,7 +1317,74 @@ export const syncPosts = /* GraphQL */ `
           startedAt
           __typename
         }
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        __typename
+      }
+      nextToken
+      startedAt
+      __typename
+    }
+  }
+`;
+export const postsByDate = /* GraphQL */ `
+  query PostsByDate(
+    $type: String!
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelPostFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    postsByDate(
+      type: $type
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
         createdAt
+        type
+        description
+        image
+        images
+        video
+        nofComments
+        nofLikes
+        userID
+        User {
+          id
+          name
+          email
+          username
+          bio
+          website
+          nofPosts
+          nofFollowers
+          nofFollowings
+          image
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          __typename
+        }
+        Likes {
+          nextToken
+          startedAt
+          __typename
+        }
+        Comments {
+          nextToken
+          startedAt
+          __typename
+        }
         updatedAt
         _version
         _deleted
@@ -1330,6 +1414,8 @@ export const postsByUserID = /* GraphQL */ `
     ) {
       items {
         id
+        createdAt
+        type
         description
         image
         images
@@ -1365,7 +1451,6 @@ export const postsByUserID = /* GraphQL */ `
           startedAt
           __typename
         }
-        createdAt
         updatedAt
         _version
         _deleted
@@ -1394,11 +1479,11 @@ export const getUser = /* GraphQL */ `
       Comments {
         items {
           id
+          createdAt
           comment
           userID
           postID
           nofLikes
-          createdAt
           updatedAt
           _version
           _deleted
@@ -1412,6 +1497,8 @@ export const getUser = /* GraphQL */ `
       Posts {
         items {
           id
+          createdAt
+          type
           description
           image
           images
@@ -1419,7 +1506,6 @@ export const getUser = /* GraphQL */ `
           nofComments
           nofLikes
           userID
-          createdAt
           updatedAt
           _version
           _deleted

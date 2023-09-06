@@ -1,4 +1,5 @@
 import {useMutation, useQuery} from '@apollo/client';
+import {Alert} from 'react-native';
 import {
   CreateCommentMutation,
   CreateCommentMutationVariables,
@@ -7,12 +8,17 @@ import {
   UpdatePostMutation,
   UpdatePostMutationVariables,
 } from '../../API';
-import {createComment, getPost, updatePost} from './queries';
 import {useAuthContext} from '../../contexts/AuthContext';
-import {Alert} from 'react-native';
+import {createComment, updatePost, getPost} from './queries';
 
-const useCommentService = (postId: string) => {
+const useCommentsService = (postId: string) => {
   const {userId} = useAuthContext();
+
+  const {data: postData} = useQuery<GetPostQuery, GetPostQueryVariables>(
+    getPost,
+    {variables: {id: postId}},
+  );
+  const post = postData?.getPost;
 
   const [doUpdatePost] = useMutation<
     UpdatePostMutation,
@@ -24,23 +30,15 @@ const useCommentService = (postId: string) => {
     CreateCommentMutationVariables
   >(createComment, {refetchQueries: ['CommentsByPost']});
 
-  const {data: postData} = useQuery<GetPostQuery, GetPostQueryVariables>(
-    getPost,
-    {variables: {id: postId}},
-  );
-
-  const post = postData?.getPost;
-
   const incrementNofComments = (amount: 1 | -1) => {
     if (!post) {
-      Alert.alert('Error updating post, please try again');
+      Alert.alert('Failed to load post. Try again later');
       return;
     }
-
     doUpdatePost({
       variables: {
         input: {
-          id: postId,
+          id: post.id,
           _version: post._version,
           nofComments: post.nofComments + amount,
         },
@@ -50,32 +48,29 @@ const useCommentService = (postId: string) => {
 
   const onCreateComment = async (newComment: string) => {
     if (!post) {
-      Alert.alert('Error updating post, please try again');
+      Alert.alert('Failed to load post. Try again later');
       return;
     }
-
     try {
       await doCreateComment({
         variables: {
           input: {
-            comment: newComment,
             postID: post.id,
             userID: userId,
+            comment: newComment,
             nofLikes: 0,
           },
         },
       });
       incrementNofComments(1);
-    } catch (error) {
-      Alert.alert('Error creating comment', (error as Error).message);
-      console.log('error: ', error);
+    } catch (e) {
+      Alert.alert('Error submitting the comment', (e as Error).message);
     }
   };
 
   return {
     onCreateComment,
-    incrementNofComments,
   };
 };
 
-export default useCommentService;
+export default useCommentsService;

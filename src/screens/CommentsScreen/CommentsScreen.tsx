@@ -11,7 +11,11 @@ import Input from './Input';
 import {useRoute} from '@react-navigation/native';
 import {CommentsRouteProp} from '../../types/navigation';
 import {useQuery} from '@apollo/client';
-import {CommentsByPostQuery, CommentsByPostQueryVariables} from '../../API';
+import {
+  CommentsByPostQuery,
+  CommentsByPostQueryVariables,
+  ModelSortDirection,
+} from '../../API';
 import {commentsByPost} from './queries';
 import ApiErrorMessage from '../../components/ApiErrorMessage/ApiErrorMessage';
 import fonts from '../../theme/fonts';
@@ -26,7 +30,9 @@ const CommentsScreen = () => {
   const {data, loading, error} = useQuery<
     CommentsByPostQuery,
     CommentsByPostQueryVariables
-  >(commentsByPost, {variables: {postID: postId}});
+  >(commentsByPost, {
+    variables: {postID: postId, sortDirection: ModelSortDirection.DESC},
+  });
 
   const comments =
     data?.commentsByPost?.items.filter(comment => !comment?._deleted) || [];
@@ -55,6 +61,7 @@ const CommentsScreen = () => {
         renderItem={({item}) => <CommentMenu comment={item} includeDetails />}
         style={styles.padding}
         ListEmptyComponent={NoComments}
+        inverted
       />
       <Input postId={postId} />
     </View>
@@ -69,6 +76,7 @@ const styles = StyleSheet.create({
     color: colors.grey,
     fontWeight: fonts.weight.bold,
     fontSize: fonts.size.md,
+    transform: [{rotateX: '180deg'}],
   },
 });
 
