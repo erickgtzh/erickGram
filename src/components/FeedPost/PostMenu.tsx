@@ -15,6 +15,7 @@ import {deletePost} from './queries';
 import {useAuthContext} from '../../contexts/AuthContext';
 import {useNavigation} from '@react-navigation/native';
 import {FeedNavigationProp} from '../../types/navigation';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 interface IPostMenu {
   post: Post;
@@ -29,6 +30,8 @@ const PostMenu = ({post}: IPostMenu) => {
   >(deletePost, {variables: {input: {id: post.id, _version: post._version}}});
 
   const navigation = useNavigation<FeedNavigationProp>();
+
+  const insets = useSafeAreaInsets();
 
   const onDeleteOptionPressed = () => {
     Alert.alert('Are you sure?', 'Deleting a post is permantent', [
@@ -55,7 +58,12 @@ const PostMenu = ({post}: IPostMenu) => {
         }}>
         <Entypo name="dots-three-horizontal" size={16} color={colors.black} />
       </MenuTrigger>
-      <MenuOptions>
+      <MenuOptions
+        customStyles={{
+          optionsContainer: {
+            paddingBottom: insets.bottom,
+          },
+        }}>
         <MenuOption onSelect={() => Alert.alert('Reporting...')}>
           <Text style={styles.optionText}>Report</Text>
         </MenuOption>

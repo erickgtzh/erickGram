@@ -61,6 +61,7 @@ const useCommentService = (postId: string) => {
             comment: newComment,
             postID: post.id,
             userID: userId,
+            nofLikes: 0,
           },
         },
       });

@@ -99,3 +99,21 @@ export const updatePost = gql`
     }
   }
 `;
+
+export const createCommentLike = gql`
+  mutation CreateCommentLike(
+    $input: CreateCommentLikeInput!
+    $condition: ModelCommentLikeConditionInput
+  ) {
+    createCommentLike(input: $input, condition: $condition) {
+      id
+      userID
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      __typename
+    }
+  }
+`;

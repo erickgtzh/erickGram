@@ -160,7 +160,14 @@ const FeedPost = ({post, isVisible}: IFeedPost) => {
         )}
 
         {(post.Comments?.items || []).map(
-          comment => comment && <Comment comment={comment} key={comment.id} />,
+          comment =>
+            comment && (
+              <Comment
+                comment={comment}
+                key={comment.id}
+                includeDetails={false}
+              />
+            ),
         )}
 
         {/* Posted date */}

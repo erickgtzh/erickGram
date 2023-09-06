@@ -7,25 +7,28 @@ import {
   MenuTrigger,
   renderers,
 } from 'react-native-popup-menu';
-import Entypo from 'react-native-vector-icons/Entypo';
 import {colors} from '../../theme/colors';
 import {useMutation} from '@apollo/client';
 import {
-  Comment,
+  Comment as CommentType,
   DeleteCommentMutation,
   DeleteCommentMutationVariables,
 } from '../../API';
-import {useAuthContext} from '../../contexts/AuthContext';
 import {deleteComment} from './queries';
 import useCommentService from '../../services/CommentsService/CommentsService';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import Comment from './Comment';
+import {useAuthContext} from '../../contexts/AuthContext';
 
 interface ICommentMenu {
-  comment: Comment;
+  comment: CommentType;
+  includeDetails?: boolean;
 }
 
-const CommentMenu = ({comment}: ICommentMenu) => {
+const CommentMenu = ({comment, includeDetails}: ICommentMenu) => {
   const {userId} = useAuthContext();
-  const isMyComment = comment?.userID === userId;
+  const isMyComment = comment.User?.id === userId;
+
   const [doDeleteComment] = useMutation<
     DeleteCommentMutation,
     DeleteCommentMutationVariables
@@ -33,6 +36,8 @@ const CommentMenu = ({comment}: ICommentMenu) => {
     variables: {input: {id: comment.id, _version: comment._version}},
   });
   const {incrementNofComments} = useCommentService(comment.postID);
+
+  const insets = useSafeAreaInsets();
 
   const onDeleteOptionPressed = () => {
     Alert.alert('Are you sure?', 'Deleting a comment is permantent', [
@@ -51,28 +56,29 @@ const CommentMenu = ({comment}: ICommentMenu) => {
   };
 
   return (
-    <Menu renderer={renderers.SlideInMenu} style={styles.threeDots}>
-      <MenuTrigger
+    <Menu renderer={renderers.SlideInMenu}>
+      <MenuTrigger triggerOnLongPress={true}>
+        <Comment comment={comment} includeDetails={includeDetails} />
+      </MenuTrigger>
+      <MenuOptions
         customStyles={{
-          triggerTouchable: {
-            hitSlop: 15,
+          optionsContainer: {
+            paddingBottom: insets.bottom,
           },
         }}>
-        <Entypo name="dots-three-horizontal" size={16} color={colors.black} />
-      </MenuTrigger>
-      <MenuOptions>
-        <MenuOption onSelect={() => Alert.alert('Reporting...')}>
-          <Text style={styles.optionText}>Report</Text>
-        </MenuOption>
-        {isMyComment && (
-          <>
+        <>
+          {isMyComment ? (
             <MenuOption onSelect={onDeleteOptionPressed}>
               <Text style={[styles.optionText, {color: colors.error}]}>
                 Delete
               </Text>
             </MenuOption>
-          </>
-        )}
+          ) : (
+            <MenuOption onSelect={() => Alert.alert('Reporting...')}>
+              <Text style={styles.optionText}>Report</Text>
+            </MenuOption>
+          )}
+        </>
       </MenuOptions>
     </Menu>
   );
@@ -84,9 +90,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: colors.black,
     padding: 10,
-  },
-  threeDots: {
-    marginLeft: 'auto',
   },
 });
 

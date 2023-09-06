@@ -5,9 +5,7 @@ import {
   ActivityIndicator,
   Text,
 } from 'react-native';
-// import comments from '../../assets/data/comments.json';
 import React from 'react';
-import Comment from '../../components/Comment/Comment';
 import {colors} from '../../theme/colors';
 import Input from './Input';
 import {useRoute} from '@react-navigation/native';
@@ -17,6 +15,7 @@ import {CommentsByPostQuery, CommentsByPostQueryVariables} from '../../API';
 import {commentsByPost} from './queries';
 import ApiErrorMessage from '../../components/ApiErrorMessage/ApiErrorMessage';
 import fonts from '../../theme/fonts';
+import CommentMenu from '../../components/Comment/CommentMenu';
 
 const NoComments = () => <Text style={styles.noComments}>No comments yet</Text>;
 
@@ -53,7 +52,7 @@ const CommentsScreen = () => {
     <View style={styles.content}>
       <FlatList
         data={comments}
-        renderItem={({item}) => <Comment comment={item} includeDetails />}
+        renderItem={({item}) => <CommentMenu comment={item} includeDetails />}
         style={styles.padding}
         ListEmptyComponent={NoComments}
       />

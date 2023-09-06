@@ -29,3 +29,20 @@ export const deleteComment = gql`
     }
   }
 `;
+
+export const createCommentLike = gql`
+  mutation CreateCommentLike(
+    $input: CreateCommentLikeInput!
+    $condition: ModelCommentLikeConditionInput
+  ) {
+    createCommentLike(input: $input, condition: $condition) {
+      id
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      __typename
+    }
+  }
+`;

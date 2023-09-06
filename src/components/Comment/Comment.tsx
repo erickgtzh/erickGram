@@ -1,28 +1,21 @@
 import {View, Text, StyleSheet, Image, Pressable} from 'react-native';
-import React, {useState} from 'react';
+import React from 'react';
 import {colors} from '../../theme/colors';
 import fonts from '../../theme/fonts';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {Comment as CommentType} from '../../API';
 import {DEFAULT_USER_IMAGE} from '../../config';
-import CommentMenu from './CommentMenu';
-
+import useCommentLikeService from '../../services/LikeCommentService';
 interface ICommentProps {
   comment: CommentType;
-  includeDetails: boolean;
+  includeDetails?: boolean;
 }
 
 const Comment = ({comment, includeDetails = false}: ICommentProps) => {
-  const [isLiked, setIsLiked] = useState<boolean>(false);
-  const [isContextMenuVisible, setContextMenuVisible] =
-    useState<boolean>(false);
-
-  const handleLongPress = () => {
-    setContextMenuVisible(true);
-  };
+  const {toggleIsLiked, isLiked} = useCommentLikeService(comment);
 
   return (
-    <Pressable style={styles.comment} onLongPress={handleLongPress}>
+    <View style={styles.comment}>
       {includeDetails && (
         <Image
           source={{uri: comment.User?.image || DEFAULT_USER_IMAGE}}
@@ -42,15 +35,14 @@ const Comment = ({comment, includeDetails = false}: ICommentProps) => {
           </View>
         )}
       </View>
-      <Pressable onPress={() => setIsLiked(v => !v)} hitSlop={6}>
+      <Pressable onPress={toggleIsLiked} hitSlop={10}>
         <AntDesign
           name={isLiked ? 'heart' : 'hearto'}
           style={styles.icon}
           color={isLiked ? colors.accent : colors.black}
         />
       </Pressable>
-      {isContextMenuVisible && <CommentMenu comment={comment} />}
-    </Pressable>
+    </View>
   );
 };
 

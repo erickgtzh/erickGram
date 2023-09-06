@@ -40,6 +40,40 @@ export declare const Like: (new (init: ModelInit<Like>) => Like) & {
   copyOf(source: Like, mutator: (draft: MutableModel<Like>) => MutableModel<Like> | void): Like;
 }
 
+type EagerCommentLike = {
+  readonly [__modelMeta__]: {
+    identifier: ManagedIdentifier<CommentLike, 'id'>;
+    readOnlyFields: 'createdAt' | 'updatedAt';
+  };
+  readonly id: string;
+  readonly userID: string;
+  readonly commentID: string;
+  readonly User?: User | null;
+  readonly Comment?: Comment | null;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+}
+
+type LazyCommentLike = {
+  readonly [__modelMeta__]: {
+    identifier: ManagedIdentifier<CommentLike, 'id'>;
+    readOnlyFields: 'createdAt' | 'updatedAt';
+  };
+  readonly id: string;
+  readonly userID: string;
+  readonly commentID: string;
+  readonly User: AsyncItem<User | undefined>;
+  readonly Comment: AsyncItem<Comment | undefined>;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+}
+
+export declare type CommentLike = LazyLoading extends LazyLoadingDisabled ? EagerCommentLike : LazyCommentLike
+
+export declare const CommentLike: (new (init: ModelInit<CommentLike>) => CommentLike) & {
+  copyOf(source: CommentLike, mutator: (draft: MutableModel<CommentLike>) => MutableModel<CommentLike> | void): CommentLike;
+}
+
 type EagerComment = {
   readonly [__modelMeta__]: {
     identifier: ManagedIdentifier<Comment, 'id'>;
@@ -49,8 +83,10 @@ type EagerComment = {
   readonly comment: string;
   readonly userID: string;
   readonly postID: string;
+  readonly nofLikes: number;
   readonly User?: User | null;
   readonly Post?: Post | null;
+  readonly CommentLikes?: (CommentLike | null)[] | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -64,8 +100,10 @@ type LazyComment = {
   readonly comment: string;
   readonly userID: string;
   readonly postID: string;
+  readonly nofLikes: number;
   readonly User: AsyncItem<User | undefined>;
   readonly Post: AsyncItem<Post | undefined>;
+  readonly CommentLikes: AsyncCollection<CommentLike>;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -140,6 +178,7 @@ type EagerUser = {
   readonly Comments?: (Comment | null)[] | null;
   readonly Posts?: (Post | null)[] | null;
   readonly Likes?: (Like | null)[] | null;
+  readonly CommentLikes?: (CommentLike | null)[] | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -162,6 +201,7 @@ type LazyUser = {
   readonly Comments: AsyncCollection<Comment>;
   readonly Posts: AsyncCollection<Post>;
   readonly Likes: AsyncCollection<Like>;
+  readonly CommentLikes: AsyncCollection<CommentLike>;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }

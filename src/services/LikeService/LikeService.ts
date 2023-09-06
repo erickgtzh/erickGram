@@ -33,10 +33,6 @@ const useLikeService = (post: Post) => {
     },
   });
 
-  const userLike = usersLikeData?.likesForPostByUser?.items?.filter(
-    like => !like?._deleted,
-  )?.[0];
-
   const [doUpdatePost] = useMutation<
     UpdatePostMutation,
     UpdatePostMutationVariables
@@ -54,6 +50,10 @@ const useLikeService = (post: Post) => {
     DeleteLikeMutation,
     DeleteUserMutationVariables
   >(deleteLike);
+
+  const userLike = usersLikeData?.likesForPostByUser?.items?.filter(
+    like => !like?._deleted,
+  )?.[0];
 
   const incrementNofLikes = (amount: 1 | -1) => {
     doUpdatePost({
