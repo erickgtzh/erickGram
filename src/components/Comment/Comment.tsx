@@ -13,9 +13,14 @@ dayjs.extend(relativeTime);
 interface ICommentProps {
   comment: CommentType;
   includeDetails?: boolean;
+  isNewComment?: boolean;
 }
 
-const Comment = ({comment, includeDetails = false}: ICommentProps) => {
+const Comment = ({
+  comment,
+  includeDetails = false,
+  isNewComment,
+}: ICommentProps) => {
   const {toggleIsLiked, isLiked} = useCommentLikeService(comment);
 
   return (
@@ -33,6 +38,7 @@ const Comment = ({comment, includeDetails = false}: ICommentProps) => {
         </Text>
         {includeDetails && (
           <View style={styles.footer}>
+            {isNewComment && <Text style={styles.new}>new</Text>}
             <Text style={styles.footerText}>
               {dayjs(comment?.createdAt).fromNow()}
             </Text>
@@ -64,6 +70,14 @@ const styles = StyleSheet.create({
   footer: {flexDirection: 'row', marginBottom: 10},
   footerText: {marginRight: 10, color: colors.grey},
   middleColumn: {flex: 1},
+  new: {
+    backgroundColor: colors.primary,
+    color: colors.white,
+    paddingHorizontal: 5,
+    marginRight: 5,
+    borderRadius: 5,
+    overflow: 'hidden',
+  },
 });
 
 export default Comment;

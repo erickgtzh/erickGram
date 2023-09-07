@@ -38,115 +38,29 @@ export const createComment = gql`
   ) {
     createComment(input: $input, condition: $condition) {
       id
-      createdAt
       comment
       userID
       postID
-      nofLikes
-      User {
-        id
-        name
-        email
-        username
-        bio
-        website
-        nofPosts
-        nofFollowers
-        nofFollowings
-        image
-        Comments {
-          nextToken
-          startedAt
-          __typename
-        }
-        Posts {
-          nextToken
-          startedAt
-          __typename
-        }
-        Likes {
-          nextToken
-          startedAt
-          __typename
-        }
-        CommentLikes {
-          nextToken
-          startedAt
-          __typename
-        }
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-        __typename
-      }
       Post {
         id
-        createdAt
-        type
-        description
-        image
-        images
-        video
         nofComments
-        nofLikes
-        userID
-        User {
-          id
-          name
-          email
-          username
-          bio
-          website
-          nofPosts
-          nofFollowers
-          nofFollowings
-          image
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-          __typename
-        }
-        Likes {
-          nextToken
-          startedAt
-          __typename
-        }
-        Comments {
-          nextToken
-          startedAt
-          __typename
-        }
+        createdAt
         updatedAt
         _version
         _deleted
         _lastChangedAt
-        __typename
       }
-      CommentLikes {
-        items {
-          id
-          userID
-          commentID
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-          __typename
-        }
-        nextToken
-        startedAt
-        __typename
+      User {
+        id
+        image
+        username
+        name
       }
+      createdAt
       updatedAt
       _version
       _deleted
       _lastChangedAt
-      __typename
     }
   }
 `;

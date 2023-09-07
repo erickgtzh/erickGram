@@ -23,9 +23,10 @@ import {useAuthContext} from '../../contexts/AuthContext';
 interface ICommentMenu {
   comment: CommentType;
   includeDetails?: boolean;
+  isNewComment?: boolean;
 }
 
-const CommentMenu = ({comment, includeDetails}: ICommentMenu) => {
+const CommentMenu = ({comment, includeDetails, isNewComment}: ICommentMenu) => {
   const {userId} = useAuthContext();
   const isMyComment = comment.User?.id === userId;
 
@@ -58,7 +59,11 @@ const CommentMenu = ({comment, includeDetails}: ICommentMenu) => {
   return (
     <Menu renderer={renderers.SlideInMenu}>
       <MenuTrigger triggerOnLongPress={true}>
-        <Comment comment={comment} includeDetails={includeDetails} />
+        <Comment
+          comment={comment}
+          includeDetails={includeDetails}
+          isNewComment={isNewComment}
+        />
       </MenuTrigger>
       <MenuOptions
         customStyles={{

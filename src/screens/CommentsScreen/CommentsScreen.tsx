@@ -1,25 +1,29 @@
+import React from 'react';
+import {useQuery, useSubscription} from '@apollo/client';
+import {useRoute} from '@react-navigation/native';
+import {useEffect, useState} from 'react';
 import {
   View,
-  FlatList,
-  StyleSheet,
-  ActivityIndicator,
   Text,
+  FlatList,
+  ActivityIndicator,
+  StyleSheet,
 } from 'react-native';
-import React from 'react';
-import {colors} from '../../theme/colors';
-import Input from './Input';
-import {useRoute} from '@react-navigation/native';
-import {CommentsRouteProp} from '../../types/navigation';
-import {useQuery} from '@apollo/client';
 import {
+  Comment as CommentType,
   CommentsByPostQuery,
   CommentsByPostQueryVariables,
   ModelSortDirection,
+  OnCreateCommentByPostIdSubscription,
+  OnCreateCommentByPostIdSubscriptionVariables,
 } from '../../API';
-import {commentsByPost} from './queries';
-import ApiErrorMessage from '../../components/ApiErrorMessage/ApiErrorMessage';
+import ApiErrorMessage from '../../components/ApiErrorMessage';
+import Comment from '../../components/Comment';
+import {CommentsRouteProp} from '../../types/navigation';
+import Input from './Input';
+import {commentsByPost, onCreateCommentByPostId} from './queries';
+import {colors} from '../../theme/colors';
 import fonts from '../../theme/fonts';
-import CommentMenu from '../../components/Comment/CommentMenu';
 
 const NoComments = () => <Text style={styles.noComments}>No comments yet</Text>;
 
@@ -27,9 +31,9 @@ const CommentsScreen = () => {
   const route = useRoute<CommentsRouteProp>();
   const {postId} = route.params;
 
-  const [isFetchingMore, setIsFetchingMore] = React.useState(false);
+  const [newComments, setNewComments] = useState<CommentType[]>([]);
 
-  const {data, loading, error, fetchMore} = useQuery<
+  const {data, loading, error, fetchMore, refetch} = useQuery<
     CommentsByPostQuery,
     CommentsByPostQueryVariables
   >(commentsByPost, {
@@ -40,31 +44,45 @@ const CommentsScreen = () => {
     },
   });
 
+  const {data: newCommentsData} = useSubscription<
+    OnCreateCommentByPostIdSubscription,
+    OnCreateCommentByPostIdSubscriptionVariables
+  >(onCreateCommentByPostId, {variables: {postID: postId}});
+
+  const [isFetchingMore, setIsFetchingMore] = useState(false);
+
+  const comments =
+    data?.commentsByPost?.items.filter(comment => !comment?._deleted) || [];
   const nextToken = data?.commentsByPost?.nextToken;
+
+  useEffect(() => {
+    refetch();
+    if (newCommentsData?.onCreateCommentByPostId) {
+      const allComments = newComments.concat(
+        newCommentsData.onCreateCommentByPostId as CommentType,
+      );
+      setNewComments(allComments);
+    }
+    refetch();
+  }, [newCommentsData]);
+
+  const isNewComment = (comment: CommentType) => {
+    return newComments.some(newComment => newComment.id === comment.id);
+  };
 
   const loadMore = async () => {
     if (!nextToken || isFetchingMore) {
       return;
     }
-
     setIsFetchingMore(true);
-    await fetchMore({
-      variables: {
-        nextToken,
-      },
-    });
+    await fetchMore({variables: {nextToken}});
     setIsFetchingMore(false);
   };
 
-  const comments =
-    data?.commentsByPost?.items.filter(comment => !comment?._deleted) || [];
-
   if (loading) {
-    return (
-      <View style={{paddingTop: 20}}>
-        <ActivityIndicator />
-      </View>
-    );
+    <View style={{paddingTop: 20}}>
+      <ActivityIndicator />
+    </View>;
   }
 
   if (error) {
@@ -80,11 +98,21 @@ const CommentsScreen = () => {
     <View style={styles.content}>
       <FlatList
         data={comments}
-        renderItem={({item}) => <CommentMenu comment={item} includeDetails />}
+        renderItem={({item}) =>
+          item && (
+            <Comment
+              comment={item}
+              includeDetails
+              isNewComment={isNewComment(item)}
+              key={item.id}
+            />
+          )
+        }
         style={styles.padding}
         inverted={comments.length !== 0 ? true : false}
         ListEmptyComponent={NoComments}
         onEndReached={loadMore}
+        onEndReachedThreshold={0.5}
       />
       <Input postId={postId} />
     </View>
@@ -93,12 +121,14 @@ const CommentsScreen = () => {
 
 const styles = StyleSheet.create({
   content: {flex: 1, backgroundColor: colors.white},
-  padding: {padding: 10},
+  padding: {
+    padding: 10,
+    paddingTop: 0,
+  },
   noComments: {
     color: colors.grey,
     fontWeight: fonts.weight.bold,
     fontSize: fonts.size.md,
-    transform: [{rotateX: '180deg'}],
   },
   loadMore: {
     color: colors.primary,
