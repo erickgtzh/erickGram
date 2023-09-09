@@ -121,8 +121,8 @@ const CameraScreen = () => {
   const navigateToCreateScreen = () => {
     navigation.navigate('Create', {
       images: [
-        'https://notjustdev-dummy.s3.us-east-2.amazonaws.com/images/3.jpg',
-        'https://notjustdev-dummy.s3.us-east-2.amazonaws.com/images/4.jpg',
+        'https://notjustdev-dummy.s3.us-east-2.amazonaws.com/images/1.jpg',
+        'https://notjustdev-dummy.s3.us-east-2.amazonaws.com/images/2.jpg',
       ],
     });
   };

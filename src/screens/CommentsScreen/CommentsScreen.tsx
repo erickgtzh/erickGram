@@ -56,7 +56,6 @@ const CommentsScreen = () => {
   const nextToken = data?.commentsByPost?.nextToken;
 
   useEffect(() => {
-    refetch();
     if (newCommentsData?.onCreateCommentByPostId) {
       const allComments = newComments.concat(
         newCommentsData.onCreateCommentByPostId as CommentType,
