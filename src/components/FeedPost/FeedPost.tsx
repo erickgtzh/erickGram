@@ -6,9 +6,6 @@ import Feather from 'react-native-vector-icons/Feather';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import styles from './styles';
 import Comment from '../Comment/Comment';
-import DoublePressable from '../DoublePressable';
-import Carousel from '../Carousel/Carousel';
-import VideoPlayer from '../VideoPlayer/VideoPlayer';
 import {useNavigation} from '@react-navigation/native';
 import {FeedNavigationProp} from '../../types/navigation';
 import {Post} from '../../API';
@@ -18,11 +15,13 @@ import useLikeService from '../../services/LikeService/LikeService';
 
 import relativeTime from 'dayjs/plugin/relativeTime';
 import dayjs from 'dayjs';
+import DoublePressable from '../DoublePressable';
+import Content from './Content';
 dayjs.extend(relativeTime);
 
 interface IFeedPost {
   post: Post;
-  isVisible?: boolean;
+  isVisible: boolean;
 }
 
 const FeedPost = ({post, isVisible}: IFeedPost) => {
@@ -49,29 +48,6 @@ const FeedPost = ({post, isVisible}: IFeedPost) => {
     navigation.navigate('PostLikes', {postId: post.id});
   };
 
-  let content = null;
-
-  if (post.image) {
-    content = (
-      <DoublePressable onDoublePress={toggleIsLiked}>
-        <Image
-          source={{
-            uri: post.image,
-          }}
-          style={styles.image}
-        />
-      </DoublePressable>
-    );
-  } else if (post.images) {
-    content = <Carousel images={post.images} onDoublePress={toggleIsLiked} />;
-  } else if (post.video) {
-    content = (
-      <DoublePressable onDoublePress={toggleIsLiked}>
-        <VideoPlayer uri={post.video} paused={!isVisible} />
-      </DoublePressable>
-    );
-  }
-
   const navigateToUser = () => {
     if (post.User) {
       navigation.navigate('UserProfile', {userId: post.User?.id});
@@ -95,7 +71,9 @@ const FeedPost = ({post, isVisible}: IFeedPost) => {
       </View>
 
       {/* Content */}
-      {content}
+      <DoublePressable onDoublePress={toggleIsLiked}>
+        <Content post={post} isVisible={isVisible} />
+      </DoublePressable>
 
       {/* Footer */}
       <View style={styles.footer}>

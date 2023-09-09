@@ -4,17 +4,16 @@ import {
   Image,
   useWindowDimensions,
   ViewToken,
+  StyleSheet,
 } from 'react-native';
 import React, {useRef, useState} from 'react';
 import {colors} from '../../theme/colors';
-import DoublePressable from '../DoublePressable';
 
 interface ICarousel {
   images?: string[];
-  onDoublePress?: () => void;
 }
 
-const Carousel = ({images, onDoublePress = () => {}}: ICarousel) => {
+const Carousel = ({images}: ICarousel) => {
   const {width} = useWindowDimensions();
   const [activeImageIndex, setActiveImageIndex] = useState(0);
 
@@ -35,11 +34,7 @@ const Carousel = ({images, onDoublePress = () => {}}: ICarousel) => {
       <FlatList
         data={images}
         renderItem={({item}) => {
-          return (
-            <DoublePressable onDoublePress={onDoublePress}>
-              <Image source={{uri: item}} style={{width, aspectRatio: 1}} />
-            </DoublePressable>
-          );
+          return <Image source={{uri: item}} style={{width, aspectRatio: 1}} />;
         }}
         showsHorizontalScrollIndicator={false}
         horizontal
@@ -47,42 +42,39 @@ const Carousel = ({images, onDoublePress = () => {}}: ICarousel) => {
         onViewableItemsChanged={onViewableItemsChanged.current}
         viewabilityConfig={viewabilityConfig}
       />
-      <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'center',
-          position: 'absolute',
-          bottom: 0,
-          width: '100%',
-        }}>
+      <View style={styles.container}>
         {images.map((_, index) => (
           <View
             key={index}
-            style={{
-              width: 10,
-              backgroundColor:
-                activeImageIndex === index ? colors.primary : colors.white,
-              borderRadius: 5,
-              aspectRatio: 1,
-              margin: 10,
-              marginHorizontal: 5,
-            }}
+            style={[
+              styles.image,
+              {
+                backgroundColor:
+                  activeImageIndex === index ? colors.primary : colors.white,
+              },
+            ]}
           />
         ))}
-
-        {/* <View
-          style={{
-            width: 10,
-            backgroundColor: 'red',
-            borderRadius: 5,
-            aspectRatio: 1,
-            margin: 10,
-            marginHorizontal: 5,
-          }}
-        /> */}
       </View>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  image: {
+    width: 10,
+    borderRadius: 5,
+    aspectRatio: 1,
+    margin: 10,
+    marginHorizontal: 5,
+  },
+  container: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    position: 'absolute',
+    bottom: 0,
+    width: '100%',
+  },
+});
 
 export default Carousel;
