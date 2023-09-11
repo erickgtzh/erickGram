@@ -29,7 +29,7 @@ const NoComments = () => <Text style={styles.noComments}>No comments yet</Text>;
 
 const CommentsScreen = () => {
   const route = useRoute<CommentsRouteProp>();
-  const {postId} = route.params;
+  const {postId} = route?.params;
 
   const [newComments, setNewComments] = useState<CommentType[]>([]);
 

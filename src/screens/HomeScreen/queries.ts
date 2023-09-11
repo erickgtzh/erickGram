@@ -35,6 +35,7 @@ export const postsByDate = gql`
         User {
           id
           name
+          image
           username
         }
         Comments(limit: 2) {

@@ -17,6 +17,7 @@ import Carousel from '../../components/Carousel/Carousel';
 import {v4 as uuidV4} from 'uuid';
 import {Storage} from 'aws-amplify';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import fonts from '../../theme/fonts';
 
 const CreatePostScreen = () => {
   const [description, setDescription] = useState('');
@@ -123,18 +124,18 @@ const CreatePostScreen = () => {
         placeholderTextColor={colors.lightgray}
       />
 
-      <Button
-        text={isSubmitting ? 'Submitting...' : 'Submit'}
-        onPress={submit}
-      />
-
-      {isSubmitting && (
+      {isSubmitting ? (
         <View style={styles.progressContainer}>
           <View style={[styles.progress, {width: `${progress * 100}%`}]} />
           <Text style={styles.progressText}>
             Uploading {Math.floor(progress * 100)}%
           </Text>
         </View>
+      ) : (
+        <Button
+          text={isSubmitting ? 'Submitting...' : 'Submit'}
+          onPress={submit}
+        />
       )}
     </KeyboardAwareScrollView>
   );
@@ -160,9 +161,10 @@ const styles = StyleSheet.create({
   },
   container: {width: '100%', aspectRatio: 1},
   progressContainer: {
+    marginTop: 5,
     backgroundColor: colors.lightgray,
     width: '100%',
-    height: 25,
+    height: 30,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 25,
@@ -177,7 +179,8 @@ const styles = StyleSheet.create({
     borderRadius: 25,
   },
   progressText: {
-    color: colors.black,
+    color: colors.white,
+    fontWeight: fonts.weight.bold,
   },
 });
 

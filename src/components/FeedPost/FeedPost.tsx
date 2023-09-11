@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Image, Pressable, Text, View} from 'react-native';
+import {Pressable, Text, View} from 'react-native';
 import {colors} from '../../theme/colors';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Feather from 'react-native-vector-icons/Feather';
@@ -9,7 +9,6 @@ import Comment from '../Comment/Comment';
 import {useNavigation} from '@react-navigation/native';
 import {FeedNavigationProp} from '../../types/navigation';
 import {Post} from '../../API';
-import {DEFAULT_USER_IMAGE} from '../../config';
 import PostMenu from './PostMenu';
 import useLikeService from '../../services/LikeService/LikeService';
 
@@ -17,6 +16,7 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import dayjs from 'dayjs';
 import DoublePressable from '../DoublePressable';
 import Content from './Content';
+import UserImage from '../UserImage/UserImage';
 dayjs.extend(relativeTime);
 
 interface IFeedPost {
@@ -58,12 +58,7 @@ const FeedPost = ({post, isVisible}: IFeedPost) => {
     <View style={styles.post}>
       {/* Header */}
       <View style={styles.header}>
-        <Image
-          source={{
-            uri: post.User?.image || DEFAULT_USER_IMAGE,
-          }}
-          style={styles.userAvatar}
-        />
+        <UserImage imageKey={post.User?.image || undefined} />
         <Text style={styles.userName} onPress={navigateToUser}>
           {post.User?.username}
         </Text>

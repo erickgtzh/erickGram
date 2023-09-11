@@ -5,7 +5,7 @@ import styles from './styles';
 import {colors} from '../../theme/colors';
 import {Text, TextInput, View} from 'react-native';
 
-type IEditableUserField = 'name' | 'username' | 'website' | 'bio';
+type IEditableUserField = 'name' | 'username' | 'website' | 'bio' | 'image';
 export type IEditableUser = Pick<User, IEditableUserField>;
 
 interface ICustomInput {

@@ -8,6 +8,7 @@ import {DEFAULT_USER_IMAGE} from '../../config';
 import useCommentLikeService from '../../services/LikeCommentService';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import dayjs from 'dayjs';
+import UserImage from '../UserImage/UserImage';
 dayjs.extend(relativeTime);
 
 interface ICommentProps {
@@ -26,8 +27,8 @@ const Comment = ({
   return (
     <View style={styles.comment}>
       {includeDetails && (
-        <Image
-          source={{uri: comment.User?.image || DEFAULT_USER_IMAGE}}
+        <UserImage
+          imageKey={comment.User?.image || undefined}
           style={styles.avatar}
         />
       )}

@@ -27,17 +27,13 @@ const useCommentLikeService = (comment: Comment) => {
     UpdateCommentMutationVariables
   >(updateComment);
 
-  const [doCreateCommentLike, {error}] = useMutation<
+  const [doCreateCommentLike] = useMutation<
     CreateCommentLikeMutation,
     CreateCommentLikeMutationVariables
   >(createCommentLike, {
     variables: {input: {userID: userId, commentID: comment.id}},
     refetchQueries: ['LikesForCommentByUser'],
   });
-
-  if (error) {
-    console.log('este es el error we ', error);
-  }
 
   const {data: usersLikesData} = useQuery<
     LikesForCommentByUserQuery,
