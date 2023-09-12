@@ -3,7 +3,14 @@ import {colors} from '../../theme/colors';
 import fonts from '../../theme/fonts';
 
 export default StyleSheet.create({
-  post: {flex: 1, backgroundColor: colors.white},
+  post: {
+    flex: 1,
+    backgroundColor: colors.white,
+    borderRadius: 10,
+    marginTop: 2.5,
+    marginHorizontal: 2.5,
+    marginBottom: 4,
+  },
   image: {width: '100%', aspectRatio: 1},
   header: {
     flexDirection: 'row',
@@ -17,7 +24,7 @@ export default StyleSheet.create({
     flexDirection: 'row',
     marginBottom: 5,
   },
-  text: {color: colors.black, lineHeight: 18},
+  text: {color: colors.black},
   bold: {color: colors.black, fontWeight: fonts.weight.bold},
   icon: {marginHorizontal: 5},
   footer: {padding: 10},
@@ -25,5 +32,5 @@ export default StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
-  commentText: {color: colors.black, flex: 1},
+  commentText: {color: colors.grey, fontSize: fonts.size.default},
 });

@@ -6,19 +6,25 @@ import {colors} from '../../theme/colors';
 
 interface IVideoPlayer {
   uri: string;
-  paused: boolean;
+  paused?: boolean;
 }
 
-const VideoPlayer = ({uri, paused}: IVideoPlayer) => {
+const VideoPlayer = ({uri, paused = true}: IVideoPlayer) => {
   const [isMuted, setIsMuted] = useState(true);
+  const videoRef = React.useRef<Video>(null);
 
   return (
     <View>
       <Video
+        ref={videoRef}
         source={{uri}}
         style={styles.video}
         resizeMode="cover"
-        repeat
+        onEnd={() => {
+          if (videoRef?.current) {
+            videoRef.current.seek(0);
+          }
+        }}
         muted={isMuted}
         paused={paused}
       />

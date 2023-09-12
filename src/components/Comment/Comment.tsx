@@ -3,35 +3,52 @@ import React from 'react';
 import {colors} from '../../theme/colors';
 import fonts from '../../theme/fonts';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import {IComment} from '../../types/models';
+import {Comment as CommentType} from '../../API';
+import {DEFAULT_USER_IMAGE} from '../../config';
+import useCommentLikeService from '../../services/LikeCommentService';
+import relativeTime from 'dayjs/plugin/relativeTime';
+import dayjs from 'dayjs';
+import UserImage from '../UserImage/UserImage';
+dayjs.extend(relativeTime);
 
 interface ICommentProps {
-  comment: IComment;
-  includeDetails: boolean;
+  comment: CommentType;
+  includeDetails?: boolean;
+  isNewComment?: boolean;
 }
 
-const Comment = ({comment, includeDetails = false}: ICommentProps) => {
-  const [isLiked, setIsLiked] = React.useState<boolean>(false);
+const Comment = ({
+  comment,
+  includeDetails = false,
+  isNewComment,
+}: ICommentProps) => {
+  const {toggleIsLiked, isLiked} = useCommentLikeService(comment);
 
   return (
     <View style={styles.comment}>
       {includeDetails && (
-        <Image source={{uri: comment.user.image}} style={styles.avatar} />
+        <UserImage
+          imageKey={comment.User?.image || undefined}
+          style={styles.avatar}
+        />
       )}
       <View style={styles.middleColumn}>
         <Text style={styles.commentText}>
-          <Text style={styles.bold}>{comment.user.username} </Text>
+          <Text style={styles.bold}>{comment.User?.username} </Text>
           {comment.comment}
         </Text>
         {includeDetails && (
           <View style={styles.footer}>
-            <Text style={styles.footerText}>2d</Text>
-            <Text style={styles.footerText}>5 likes</Text>
+            {isNewComment && <Text style={styles.new}>new</Text>}
+            <Text style={styles.footerText}>
+              {dayjs(comment?.createdAt).fromNow()}
+            </Text>
+            <Text style={styles.footerText}>2x</Text>
             <Text style={styles.footerText}>Reply</Text>
           </View>
         )}
       </View>
-      <Pressable onPress={() => setIsLiked(v => !v)} hitSlop={6}>
+      <Pressable onPress={toggleIsLiked} hitSlop={10}>
         <AntDesign
           name={isLiked ? 'heart' : 'hearto'}
           style={styles.icon}
@@ -54,6 +71,14 @@ const styles = StyleSheet.create({
   footer: {flexDirection: 'row', marginBottom: 10},
   footerText: {marginRight: 10, color: colors.grey},
   middleColumn: {flex: 1},
+  new: {
+    backgroundColor: colors.primary,
+    color: colors.white,
+    paddingHorizontal: 5,
+    marginRight: 5,
+    borderRadius: 5,
+    overflow: 'hidden',
+  },
 });
 
 export default Comment;

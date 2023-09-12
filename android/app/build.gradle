@@ -93,9 +93,9 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace "com.instagram"
+    namespace "dev.erickgram"
     defaultConfig {
-        applicationId "com.instagram"
+        applicationId "dev.erickgram"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
