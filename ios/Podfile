@@ -22,7 +22,7 @@ if linkage != nil
   use_frameworks! :linkage => linkage.to_sym
 end
 
-target 'notJustPhotos' do
+target 'erickGram' do
   use_expo_modules!
   post_integrate do |installer|
     begin
@@ -57,7 +57,7 @@ target 'notJustPhotos' do
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
-  target 'notJustPhotosTests' do
+  target 'erickGramTests' do
     inherit! :complete
     # Pods for testing
   end
