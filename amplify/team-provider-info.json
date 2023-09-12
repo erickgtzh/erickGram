@@ -1,16 +1,16 @@
 {
-  "staging": {
+  "dev": {
     "awscloudformation": {
-      "AuthRoleName": "amplify-instagram-staging-224457-authRole",
-      "UnauthRoleArn": "arn:aws:iam::303213000759:role/amplify-instagram-staging-224457-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::303213000759:role/amplify-instagram-staging-224457-authRole",
+      "AuthRoleName": "amplify-instagram-dev-152930-authRole",
+      "UnauthRoleArn": "arn:aws:iam::303213000759:role/amplify-instagram-dev-152930-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::303213000759:role/amplify-instagram-dev-152930-authRole",
       "Region": "us-east-1",
-      "DeploymentBucketName": "amplify-instagram-staging-224457-deployment",
-      "UnauthRoleName": "amplify-instagram-staging-224457-unauthRole",
-      "StackName": "amplify-instagram-staging-224457",
-      "StackId": "arn:aws:cloudformation:us-east-1:303213000759:stack/amplify-instagram-staging-224457/89c22da0-3318-11ee-b3ac-12f8f4f0e2d3",
+      "DeploymentBucketName": "amplify-instagram-dev-152930-deployment",
+      "UnauthRoleName": "amplify-instagram-dev-152930-unauthRole",
+      "StackName": "amplify-instagram-dev-152930",
+      "StackId": "arn:aws:cloudformation:us-east-1:303213000759:stack/amplify-instagram-dev-152930/77920c40-51b3-11ee-a8ea-0ac05b855681",
       "AmplifyAppId": "d2qh12z4at189g",
-      "AuthTriggerTemplateURL": "https://s3.amazonaws.com/amplify-instagram-staging-224457-deployment/amplify-cfn-templates/auth/auth-trigger-cloudformation-template.json"
+      "AuthTriggerTemplateURL": "https://s3.amazonaws.com/amplify-instagram-dev-152930-deployment/amplify-cfn-templates/auth/auth-trigger-cloudformation-template.json"
     },
     "categories": {
       "auth": {
@@ -18,7 +18,7 @@
       },
       "function": {
         "InstagramPostConfirmation": {
-          "deploymentBucketName": "amplify-instagram-staging-224457-deployment",
+          "deploymentBucketName": "amplify-instagram-dev-152930-deployment",
           "s3Key": "amplify-builds/InstagramPostConfirmation-477257366a4771374534-build.zip"
         },
         "Instagram": {}
@@ -55,51 +55,8 @@
         },
         "Instagram": {}
       },
-      "api": {
-        "Instagram": {}
-      },
       "storage": {
         "storage": {}
-      }
-    }
-  },
-  "prod": {
-    "awscloudformation": {
-      "AuthRoleName": "amplify-instagram-prod-154625-authRole",
-      "UnauthRoleArn": "arn:aws:iam::303213000759:role/amplify-instagram-prod-154625-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::303213000759:role/amplify-instagram-prod-154625-authRole",
-      "Region": "us-east-1",
-      "DeploymentBucketName": "amplify-instagram-prod-154625-deployment",
-      "UnauthRoleName": "amplify-instagram-prod-154625-unauthRole",
-      "StackName": "amplify-instagram-prod-154625",
-      "StackId": "arn:aws:cloudformation:us-east-1:303213000759:stack/amplify-instagram-prod-154625/d6ec12b0-51b5-11ee-a272-0a60173696d5",
-      "AmplifyAppId": "d2qh12z4at189g",
-      "AuthTriggerTemplateURL": "https://s3.amazonaws.com/amplify-instagram-prod-154625-deployment/amplify-cfn-templates/auth/auth-trigger-cloudformation-template.json"
-    },
-    "categories": {
-      "auth": {
-        "Instagram": {}
-      },
-      "function": {
-        "InstagramPostConfirmation": {
-          "deploymentBucketName": "amplify-instagram-prod-154625-deployment",
-          "s3Key": "amplify-builds/InstagramPostConfirmation-477257366a4771374534-build.zip"
-        },
-        "Instagram": {}
-      },
-      "api": {
-        "Instagram": {}
-      },
-      "storage": {
-        "storage": {}
-      }
-    }
-  },
-  "dev": {
-    "categories": {
-      "function": {
-        "InstagramPostConfirmation": {},
-        "Instagram": {}
       }
     }
   }
