@@ -30,5 +30,12 @@
         "Instagram": {}
       }
     }
+  },
+  "staging": {
+    "categories": {
+      "auth": {
+        "Instagram": {}
+      }
+    }
   }
 }
