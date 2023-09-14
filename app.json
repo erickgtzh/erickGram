@@ -1,4 +1,11 @@
 {
   "name": "erickGram",
-  "displayName": "erickGram"
+  "displayName": "erickGram",
+  "expo": {
+    "extra": {
+      "eas": {
+        "projectId": "69061ca1-1344-4f5f-a9da-f4c5f8f41b48"
+      }
+    }
+  }
 }
