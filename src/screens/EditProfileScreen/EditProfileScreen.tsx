@@ -189,7 +189,11 @@ const EditProfileScreen = () => {
 
   return (
     <View style={styles.page}>
-      <UserImage imageKey={user?.image || undefined} style={styles.avatar} />
+      {selectedPhoto ? (
+        <Image source={{uri: selectedPhoto?.uri}} style={styles.avatar} />
+      ) : (
+        <UserImage imageKey={user?.image || undefined} style={styles.avatar} />
+      )}
       <Text onPress={onChangePhoto} style={styles.textButton}>
         Change profile photo
       </Text>
