@@ -50,7 +50,7 @@ jobs:
 
       #INITIALIZE THE BACKEND ENVIRONMENT
       - name: Initialize backend environment
-        run: ./.github/scripts/amplify-init.sh staging
+        run: ./.github/scripts/amplify-init.sh ${{ inputs.AMPLIFY_ENV_NAME }}
 
       # PUSH CHANGES TO CLOUD
       - name: Push backend changes
