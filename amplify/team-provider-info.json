@@ -24,6 +24,16 @@
       },
       "storage": {
         "s3instagramstorage7cfc33b6": {}
+      },
+      "api": {
+        "Instagram": {}
+      }
+    }
+  },
+  "staging": {
+    "categories": {
+      "auth": {
+        "Instagram": {}
       }
     }
   }
