@@ -44,6 +44,10 @@ jobs:
           npm install -g --unsafe-perm @aws-amplify/cli@latest
           echo "amplify version $(amplify --version)"
 
+      # GIVE PERMISSIONS FOR SCRIPTS
+      - name: Set execute permissions for script
+        run: chmod +x ./.github/scripts/amplify-init.sh
+
       #INITIALIZE THE BACKEND ENVIRONMENT
       - name: Initialize backend environment
         run: ./.github/scripts/amplify-init.sh staging
