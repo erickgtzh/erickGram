@@ -6,6 +6,7 @@ on:
   push:
     branches:
       - staging
+      - dev # TODO remove when we're done with dev
 
 jobs:
   deploy-backend:
