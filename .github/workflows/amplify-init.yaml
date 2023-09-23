@@ -43,6 +43,7 @@ jobs:
           aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID --profile default
           aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY --profile default
           aws configure set default.region $AWS_REGION
+          aws configure set amplify.storage.$AMPLIFY_ENV_NAME.bucket ${{ secrets.AMPLIFY_STORAGE_BUCKET_NAME }}
 
       # Install and configure AWS Amplify cli
       - name: Install AWS Amplify cli
