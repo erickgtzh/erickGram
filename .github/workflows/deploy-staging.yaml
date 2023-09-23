@@ -1,4 +1,4 @@
-name: EAS Build
+name: Build and Deploy the app to staging environment
 on:
   workflow_dispatch:
   push:
@@ -6,59 +6,13 @@ on:
       - staging
       - dev # TODO remove when we're done with dev
 
-env:
-  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-  AWS_REGION: ${{ secrets.AWS_REGION }}
-  AMPLIFY_FACEBOOK_CLIENT_ID: ${{ secrets.AMPLIFY_FACEBOOK_CLIENT_ID }}
-  AMPLIFY_FACEBOOK_CLIENT_SECRET: ${{ secrets.AMPLIFY_FACEBOOK_CLIENT_SECRET }}
-  AMPLIFY_GOOGLE_CLIENT_ID: ${{ secrets.AMPLIFY_GOOGLE_CLIENT_ID }}
-  AMPLIFY_GOOGLE_CLIENT_SECRET: ${{ secrets.AMPLIFY_GOOGLE_CLIENT_SECRET }}
-
 jobs:
   deploy-backend:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 18.x
-          cache: npm
-
-      # INSTALL AWS CLI
-      - name: Install and configure AWS cli
-        run: |
-          curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-          unzip awscliv2.zip
-          sudo ./aws/install --update
-
-      - name: Configure AWS cli credentials
-        run: |
-          aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID --profile default
-          aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY --profile default
-          aws configure set default.region $AWS_REGION
-    
-      # INSTALL AND CONFIGURE AWS AMPLIFY CLI
-      - name: Install AWS Amplify cli
-        run: |
-          npm install -g --unsafe-perm @aws-amplify/cli@latest
-          echo "amplify version $(amplify --version)"
-
-      # GIVE PERMISSIONS FOR SCRIPTS
-      - name: Set execute permissions for script
-        run: chmod +x ./.github/scripts/amplify-init.sh
-
-      #INITIALIZE THE BACKEND ENVIRONMENT
-      - name: Initialize backend environment
-        run: ./.github/scripts/amplify-init.sh staging
-
-      # PUSH CHANGES TO CLOUD
-      - name: Push backend changes
-        run: amplify push --yes
-
-      # COMMIT AND PUSH CHANGES TO GITHUB
-      - uses: stefanzweifel/git-auto-commit-action@v4
-  
+    name: Deploy backend to staging environment
+    uses: ./.github/workflows/amplify-init.yaml
+    secrets: inherit
+    with: 
+      AMPLIFY_ENV_NAME: staging
 
   build-android:
     name: Install and build android app (Preview)
@@ -68,14 +22,15 @@ jobs:
     with:
       PLATFORM: android
       PROFILE: preview
-    
-  build-ios:
-    name: Install and build ios app (Preview)
-    needs: deploy-backend
-    uses: ./.github/workflows/eas-build.yaml
-    secrets: inherit
-    with:
-      PLATFORM: ios
-      PROFILE: preview
+
+  # we are not building ios for now    
+  # build-ios:
+  #   name: Install and build ios app (Preview)
+  #   needs: deploy-backend
+  #   uses: ./.github/workflows/eas-build.yaml
+  #   secrets: inherit
+  #   with:
+  #     PLATFORM: ios
+  #     PROFILE: preview
     
  
