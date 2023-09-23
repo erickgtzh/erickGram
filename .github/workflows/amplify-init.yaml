@@ -29,9 +29,7 @@ jobs:
           
       # Setup permissions    
       - name: Set up script permissions and run
-        run: |
-          chmod +x ./.github/scripts/amplify-init.sh
-          ./.github/scripts/amplify-init.sh staging
+        run: chmod +x ./.github/scripts/amplify-init.sh
 
       # Install AWS cli
       - name: Install AWS cli
