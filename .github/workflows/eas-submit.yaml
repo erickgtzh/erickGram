@@ -1,4 +1,5 @@
 name: EAS Submit
+
 on:
   workflow_call:
     inputs:
@@ -15,16 +16,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      
+      - run: git pull origin ${{ github.ref_name }}
+
       - name: Setup Expo and EAS
-        uses: expo/expo-github-action@v8
+        uses: expo/expo-github-action@v7
         with:
+          expo-version: 6.x
           eas-version: latest
           token: ${{ secrets.EXPO_TOKEN }}
+
       - name: Decode and write the service_account.json
-        env: 
+        env:
           GOOGLE_SERVICE_ACCOUNT_BASE64: ${{ secrets.GOOGLE_SERVICE_ACCOUNT }}
         run: echo $GOOGLE_SERVICE_ACCOUNT_BASE64 | base64 --decode > service_account.json
+
       - name: Submit to EAS
         run: eas submit --profile ${{ inputs.PROFILE }} --platform ${{ inputs.PLATFORM }} --latest --non-interactive
- 
