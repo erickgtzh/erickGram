@@ -28,7 +28,7 @@ export type AmplifyDependentResourcesAttributes = {
     }
   },
   "storage": {
-    "storage": {
+    "s3instagramstorage7cfc33b6": {
       "BucketName": "string",
       "Region": "string"
     }
