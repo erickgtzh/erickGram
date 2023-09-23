@@ -6,7 +6,7 @@ on:
         required: true
         type: string
       PROFILE:
-        required: true
+        required: false
         type: string
         default: production
 jobs:
