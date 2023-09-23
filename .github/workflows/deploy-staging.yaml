@@ -35,8 +35,8 @@ jobs:
       - name: Configure AWS cli credentials
         run: |
           aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID --profile default
-          aws configure set aws_access_secret_access_key $AWS_ACCESS_SECRET_ACCESS_KEY --profile default
-          aws configure set default.regio $AWS_REGION
+          aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY --profile default
+          aws configure set default.region $AWS_REGION
     
       # INSTALL AND CONFIGURE AWS AMPLIFY CLI
       - name: Install AWS Amplify cli
