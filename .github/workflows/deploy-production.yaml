@@ -25,7 +25,7 @@ jobs:
 
       - uses: actions/setup-node@v3
         with:
-          node-version: 20.x
+          node-version: 16.x
           cache: npm
       - name: Install dependencies
         run: npm ci
@@ -49,6 +49,15 @@ jobs:
       PLATFORM: android
       PROFILE: production
 
+  build-ios:
+    name: Install and build ios app (Production)
+    needs: patch-version
+    uses: ./.github/workflows/eas-build.yaml
+    secrets: inherit
+    with:
+      PLATFORM: ios
+      PROFILE: production
+
   submit-android:
     name: Submit android app to Play Store
     needs: build-android
@@ -56,3 +65,11 @@ jobs:
     secrets: inherit
     with:
       PLATFORM: android
+
+  submit-ios:
+    name: Submit ios app to AppStore
+    needs: build-ios
+    uses: ./.github/workflows/eas-submit.yaml
+    secrets: inherit
+    with:
+      PLATFORM: ios
