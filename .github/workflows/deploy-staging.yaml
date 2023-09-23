@@ -50,12 +50,11 @@ jobs:
 
       #INITIALIZE THE BACKEND ENVIRONMENT
       - name: Initialize backend environment
-        run: ./.github/scripts/amplify-init.sh ${{ inputs.AMPLIFY_ENV_NAME }}
+        run: ./.github/scripts/amplify-init.sh staging
 
       # PUSH CHANGES TO CLOUD
       - name: Push backend changes
-        run: |
-          amplify push --yes
+        run: amplify push --yes
 
       # COMMIT AND PUSH CHANGES TO GITHUB
       - uses: stefanzweifel/git-auto-commit-action@v4
