@@ -59,9 +59,14 @@ const FeedPost = ({post, isVisible}: IFeedPost) => {
       {/* Header */}
       <View style={styles.header}>
         <UserImage imageKey={post.User?.image || undefined} />
-        <Text style={styles.userName} onPress={navigateToUser}>
-          {post.User?.username}
-        </Text>
+        <View>
+          <Text style={styles.userName} onPress={navigateToUser}>
+            {post.User?.username}
+          </Text>
+          {post.location && (
+            <Text style={styles.locationText}>{post.location}</Text>
+          )}
+        </View>
         <PostMenu post={post} />
       </View>
 

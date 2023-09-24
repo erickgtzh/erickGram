@@ -31,6 +31,7 @@ type Post @model @auth(rules: [{allow: private, operations: [read]}, {allow: own
   createdAt: AWSDateTime!
   type: String! @index(name: "postByDate", queryField: "postsByDate", sortKeyFields: ["createdAt"])
   description: String 
+  location: String
   image: String
   images: [String!]
   video: String
