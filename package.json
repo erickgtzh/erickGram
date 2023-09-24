@@ -43,7 +43,7 @@
     "react-native-tab-view": "^3.5.2",
     "react-native-url-polyfill": "^2.0.0",
     "react-native-vector-icons": "^9.2.0",
-    "react-native-video": "^6.0.0-alpha.6",
+    "react-native-video": "^5.2.1",
     "uuid": "^9.0.0"
   },
   "devDependencies": {
@@ -55,7 +55,6 @@
     "@types/jest": "^29.2.1",
     "@types/react": "^18.0.24",
     "@types/react-native-vector-icons": "^6.4.13",
-    "@types/react-native-video": "^5.0.15",
     "@types/react-test-renderer": "^18.0.0",
     "babel-jest": "^29.2.1",
     "eslint": "^8.19.0",
