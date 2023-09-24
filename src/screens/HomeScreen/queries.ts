@@ -20,6 +20,7 @@ export const postsByDate = gql`
       items {
         id
         description
+        location
         image
         images
         video

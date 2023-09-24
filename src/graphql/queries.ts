@@ -57,6 +57,7 @@ export const getLike = /* GraphQL */ `query GetLike($id: ID!) {
       createdAt
       type
       description
+      location
       image
       images
       video
@@ -143,6 +144,7 @@ export const listLikes = /* GraphQL */ `query ListLikes(
         createdAt
         type
         description
+        location
         image
         images
         video
@@ -210,6 +212,7 @@ export const syncLikes = /* GraphQL */ `query SyncLikes(
         createdAt
         type
         description
+        location
         image
         images
         video
@@ -279,6 +282,7 @@ export const likesByUserID = /* GraphQL */ `query LikesByUserID(
         createdAt
         type
         description
+        location
         image
         images
         video
@@ -353,6 +357,7 @@ export const likesForPostByUser = /* GraphQL */ `query LikesForPostByUser(
         createdAt
         type
         description
+        location
         image
         images
         video
@@ -458,6 +463,7 @@ export const getCommentLike = /* GraphQL */ `query GetCommentLike($id: ID!) {
         createdAt
         type
         description
+        location
         image
         images
         video
@@ -812,6 +818,7 @@ export const getComment = /* GraphQL */ `query GetComment($id: ID!) {
       createdAt
       type
       description
+      location
       image
       images
       video
@@ -920,6 +927,7 @@ export const listComments = /* GraphQL */ `query ListComments(
         createdAt
         type
         description
+        location
         image
         images
         video
@@ -997,6 +1005,7 @@ export const syncComments = /* GraphQL */ `query SyncComments(
         createdAt
         type
         description
+        location
         image
         images
         video
@@ -1076,6 +1085,7 @@ export const commentsByUserID = /* GraphQL */ `query CommentsByUserID(
         createdAt
         type
         description
+        location
         image
         images
         video
@@ -1157,6 +1167,7 @@ export const commentsByPost = /* GraphQL */ `query CommentsByPost(
         createdAt
         type
         description
+        location
         image
         images
         video
@@ -1197,6 +1208,7 @@ export const getPost = /* GraphQL */ `query GetPost($id: ID!) {
     createdAt
     type
     description
+    location
     image
     images
     video
@@ -1298,6 +1310,7 @@ export const listPosts = /* GraphQL */ `query ListPosts(
       createdAt
       type
       description
+      location
       image
       images
       video
@@ -1363,6 +1376,7 @@ export const syncPosts = /* GraphQL */ `query SyncPosts(
       createdAt
       type
       description
+      location
       image
       images
       video
@@ -1432,6 +1446,7 @@ export const postsByDate = /* GraphQL */ `query PostsByDate(
       createdAt
       type
       description
+      location
       image
       images
       video
@@ -1502,6 +1517,7 @@ export const postsByUserID = /* GraphQL */ `query PostsByUserID(
       createdAt
       type
       description
+      location
       image
       images
       video
@@ -1590,6 +1606,7 @@ export const getUser = /* GraphQL */ `query GetUser($id: ID!) {
         createdAt
         type
         description
+        location
         image
         images
         video

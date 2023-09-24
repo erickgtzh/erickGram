@@ -25,6 +25,9 @@
       },
       "storage": {
         "s3instagramstorage7cfc33b6": {}
+      },
+      "api": {
+        "Instagram": {}
       }
     }
   },
