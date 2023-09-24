@@ -3,15 +3,15 @@
 
 const awsmobile = {
     "aws_project_region": "us-east-1",
-    "aws_appsync_graphqlEndpoint": "https://htvyibyzcnhjfoq26rghh2p6jy.appsync-api.us-east-1.amazonaws.com/graphql",
+    "aws_appsync_graphqlEndpoint": "https://4ximh662ojhsvguktqy3oacdre.appsync-api.us-east-1.amazonaws.com/graphql",
     "aws_appsync_region": "us-east-1",
     "aws_appsync_authenticationType": "AMAZON_COGNITO_USER_POOLS",
-    "aws_cognito_identity_pool_id": "us-east-1:fc2f76ff-8b2e-443a-8ccf-3e66bacb8d1f",
+    "aws_cognito_identity_pool_id": "us-east-1:6c981fc3-d9c7-4c84-947d-d82baaf17778",
     "aws_cognito_region": "us-east-1",
-    "aws_user_pools_id": "us-east-1_5kwTgiq7T",
-    "aws_user_pools_web_client_id": "41lpod60v9inuo0enq07h6a25i",
+    "aws_user_pools_id": "us-east-1_nvrhE7Ub7",
+    "aws_user_pools_web_client_id": "4qlqfhcavkt8p3mektu65v48pr",
     "oauth": {
-        "domain": "mrcc9zni56p2-staging.auth.us-east-1.amazoncognito.com",
+        "domain": "mrcc9zni56p2-dev.auth.us-east-1.amazoncognito.com",
         "scope": [
             "phone",
             "email",
@@ -46,7 +46,7 @@ const awsmobile = {
     "aws_cognito_verification_mechanisms": [
         "EMAIL"
     ],
-    "aws_user_files_s3_bucket": "instagram-storage-7cfc33b6172307-staging",
+    "aws_user_files_s3_bucket": "instagram-storage-7cfc33b6152930-dev",
     "aws_user_files_s3_bucket_region": "us-east-1"
 };
 

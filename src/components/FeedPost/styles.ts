@@ -33,4 +33,5 @@ export default StyleSheet.create({
     alignItems: 'center',
   },
   commentText: {color: colors.grey, fontSize: fonts.size.default},
+  locationText: {color: colors.grey, fontSize: fonts.size.default},
 });

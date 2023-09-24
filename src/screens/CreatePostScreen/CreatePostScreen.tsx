@@ -21,6 +21,8 @@ import fonts from '../../theme/fonts';
 
 const CreatePostScreen = () => {
   const [description, setDescription] = useState('');
+  const [location, setLocation] = useState('');
+
   const {userId} = useAuthContext();
   const navigation = useNavigation<CreateNavigationProp>();
 
@@ -81,6 +83,7 @@ const CreatePostScreen = () => {
       images: undefined,
       video: undefined,
       description,
+      location,
       nofComments: 0,
       nofLikes: 0,
       userID: userId,
@@ -121,6 +124,14 @@ const CreatePostScreen = () => {
         style={styles.input}
         multiline
         numberOfLines={5}
+        placeholderTextColor={colors.lightgray}
+      />
+
+      <TextInput
+        value={location}
+        onChangeText={setLocation}
+        placeholder="Location"
+        style={styles.input}
         placeholderTextColor={colors.lightgray}
       />
 
