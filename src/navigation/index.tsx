@@ -37,7 +37,7 @@ const linking: LinkingOptions<RootNavigatorParamList> = {
 const Navigation = () => {
   const {user, userId} = useAuthContext();
 
-  const {data, error, loading} = useQuery<GetUserQuery, GetUserQueryVariables>(
+  const {data, loading} = useQuery<GetUserQuery, GetUserQueryVariables>(
     getUser,
     {variables: {id: userId}},
   );
@@ -45,7 +45,13 @@ const Navigation = () => {
   const userData = data?.getUser;
 
   if (loading || user === undefined) {
-    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+    <View
+      style={{
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingTop: 20,
+      }}>
       <ActivityIndicator />
     </View>;
   }
