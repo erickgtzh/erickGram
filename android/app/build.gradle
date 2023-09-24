@@ -98,6 +98,7 @@ android {
         applicationId "dev.erickgram"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
+        ext.kotlinVersion = '1.6.20'
         versionCode 4
         versionName "1.0.5"
     }
