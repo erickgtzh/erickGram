@@ -35,7 +35,7 @@ jobs:
           git config user.name "$GITHUB_ACTOR"
 
       - name: Patch version
-        run: npm --no-git-tag-version version patch
+        run: npx react-native-version patch
 
       # Commit and push changes to github
       - uses: stefanzweifel/git-auto-commit-action@v4
