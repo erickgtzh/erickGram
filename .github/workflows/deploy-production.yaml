@@ -36,8 +36,15 @@ jobs:
 
       - name: Patch version and Add Timestamp
         run: |
-          new_version=$(npm version patch --no-git-tag-version)
-          npm version "$new_version-$(date +%s)" --no-git-tag-version
+          node -e "
+          const fs = require('fs');
+          const path = './package.json';
+          const pkg = require(path);
+          const versionParts = pkg.version.split('.');
+          versionParts[2] = parseInt(versionParts[2]) + 1; // Incrementa el patch version
+          pkg.version = versionParts.join('.') + '-' + Date.now(); // Añade timestamp
+          fs.writeFileSync(path, JSON.stringify(pkg, null, 2));
+          "
 
       # Commit and push changes to github
       - uses: stefanzweifel/git-auto-commit-action@v4
