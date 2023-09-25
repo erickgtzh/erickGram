@@ -12,9 +12,14 @@ interface IUserListItemProps {
 
 const UserListItem = ({user}: IUserListItemProps) => {
   const navigation = useNavigation();
+
   const goToUserScreen = () => {
-    navigation.navigate('UserProfile', {userId: user.id});
+    navigation.navigate('UserProfile', {
+      screen: 'Profile',
+      params: {userId: user.id},
+    });
   };
+
   return (
     <Pressable style={styles.container} onPress={goToUserScreen}>
       <Image

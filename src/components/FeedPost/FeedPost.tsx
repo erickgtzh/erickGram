@@ -50,7 +50,10 @@ const FeedPost = ({post, isVisible}: IFeedPost) => {
 
   const navigateToUser = () => {
     if (post.User) {
-      navigation.navigate('UserProfile', {userId: post.User?.id});
+      navigation.navigate('UserProfile', {
+        screen: 'Profile',
+        params: {userId: post.User?.id},
+      });
     }
   };
 

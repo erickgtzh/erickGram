@@ -1,7 +1,7 @@
-import {View, Text, Alert} from 'react-native';
+import {View, Text, Alert, Pressable} from 'react-native';
 import Button from '../../components/Button/Button';
 import styles from './styles';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {Auth} from 'aws-amplify';
 import {
@@ -58,9 +58,12 @@ const ProfileHeader = ({user}: IProfileHeader) => {
     item => !item?._deleted,
   )?.[0];
 
-  navigation.setOptions({
-    title: user?.username || 'Profile',
-  });
+  useEffect(() => {
+    console.log('si entra');
+    navigation.setOptions({
+      title: user?.username || 'Profile',
+    });
+  }, [user?.username]);
 
   const onFollowPress = async () => {
     if (userFollowObject) {
@@ -99,14 +102,28 @@ const ProfileHeader = ({user}: IProfileHeader) => {
             <Text style={styles.numberText}>{user?.nofPosts}</Text>
             <Text style={styles.textDetail}>Posts</Text>
           </View>
-          <View style={styles.numberContainer}>
+          <Pressable
+            style={styles.numberContainer}
+            onPress={() =>
+              navigation.navigate('UserFollow', {
+                screen: 'Followers',
+                userId: user?.id,
+              })
+            }>
             <Text style={styles.numberText}>{user?.nofFollowers}</Text>
             <Text style={styles.textDetail}>Followers</Text>
-          </View>
-          <View style={styles.numberContainer}>
+          </Pressable>
+          <Pressable
+            style={styles.numberContainer}
+            onPress={() =>
+              navigation.navigate('UserFollow', {
+                screen: 'Followings',
+                userId: user?.id,
+              })
+            }>
             <Text style={styles.numberText}>{user?.nofFollowings}</Text>
             <Text style={styles.textDetail}>Following</Text>
-          </View>
+          </Pressable>
         </View>
       </View>
 
