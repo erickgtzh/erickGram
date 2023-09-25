@@ -9,7 +9,6 @@ import HomeStackNavigator from './HomeStackNavigator';
 import ProfileStackNavigator from './ProfileStackNavigator';
 import {BottomTabNavigatorParamList} from '../types/navigation';
 import SearchTabNavigator from './SearchTabNavigator';
-import CameraScreen from '../screens/CameraScreen/CameraScreen';
 import UploadStackNavigator from './UploadStackNavigator';
 
 const Tab = createBottomTabNavigator<BottomTabNavigatorParamList>();

@@ -1,13 +1,22 @@
-import {View, Text} from 'react-native';
+import {View, Text, Alert} from 'react-native';
 import Button from '../../components/Button/Button';
 import styles from './styles';
 import React from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {Auth} from 'aws-amplify';
-import {User} from '../../API';
+import {
+  CreateUserFollowMutation,
+  CreateUserFollowMutationVariables,
+  DeleteUserFollowMutation,
+  DeleteUserFollowMutationVariables,
+  User,
+} from '../../API';
 import {ProfileNavigationProp} from '../../types/navigation';
 import {useAuthContext} from '../../contexts/AuthContext';
 import UserImage from '../../components/UserImage/UserImage';
+import {useMutation, useQuery} from '@apollo/client';
+import {createUserFollow, deleteUserFollow, userFollowings} from './queries';
+import {UserFollowingsQuery, UserFollowingsQueryVariables} from '../../API';
 
 interface IProfileHeader {
   user: User;
@@ -17,9 +26,67 @@ const ProfileHeader = ({user}: IProfileHeader) => {
   const {userId} = useAuthContext();
   const navigation = useNavigation<ProfileNavigationProp>();
 
+  const [doFollow, {loading: followingLoading}] = useMutation<
+    CreateUserFollowMutation,
+    CreateUserFollowMutationVariables
+  >(createUserFollow, {
+    variables: {
+      input: {
+        followeeID: user.id,
+        followerID: userId,
+      },
+    },
+    refetchQueries: ['UserFollowings'],
+  });
+
+  const [doUnfollow, {loading: unfollowingLoading}] = useMutation<
+    DeleteUserFollowMutation,
+    DeleteUserFollowMutationVariables
+  >(deleteUserFollow);
+
+  const {data: userFollowingsData, loading: userFollowingsLoading} = useQuery<
+    UserFollowingsQuery,
+    UserFollowingsQueryVariables
+  >(userFollowings, {
+    variables: {
+      followerID: userId,
+      followeeID: {eq: user.id},
+    },
+  });
+
+  const userFollowObject = userFollowingsData?.userFollowings?.items?.filter(
+    item => !item?._deleted,
+  )?.[0];
+
   navigation.setOptions({
     title: user?.username || 'Profile',
   });
+
+  const onFollowPress = async () => {
+    if (userFollowObject) {
+      try {
+        await doUnfollow({
+          variables: {
+            input: {
+              id: userFollowObject.id,
+              _version: userFollowObject._version,
+            },
+          },
+          refetchQueries: ['UserFollowings'],
+        });
+      } catch (e) {
+        Alert.alert('Failed to unfollow the user', (e as Error).message);
+        console.log(e);
+      }
+      return;
+    }
+    try {
+      await doFollow();
+    } catch (e) {
+      Alert.alert('Failed to follow the user', (e as Error).message);
+      console.log(e);
+    }
+  };
 
   return (
     <View style={styles.root}>
@@ -63,7 +130,16 @@ const ProfileHeader = ({user}: IProfileHeader) => {
             inline
           />
         </View>
-      ) : null}
+      ) : (
+        <Button
+          text={userFollowObject ? 'Unfollow' : 'Follow'}
+          onPress={onFollowPress}
+          inline
+          disabled={
+            userFollowingsLoading || followingLoading || unfollowingLoading
+          }
+        />
+      )}
     </View>
   );
 };
