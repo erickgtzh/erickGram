@@ -36,16 +36,51 @@ jobs:
 
       - name: Patch version and Add Timestamp
         run: |
+          # Incrementar la versión en package.json y package-lock.json
           node -e "
           const fs = require('fs');
-          const path = './package.json';
-          const pkg = require(path);
+          const packagePath = './package.json';
+          const packageLockPath = './package-lock.json';
+          
+          // Leer y modificar package.json
+          const pkg = require(packagePath);
           const versionParts = pkg.version.split('.');
-          versionParts[2] = parseInt(versionParts[2]) + 1; // Incrementa el patch version
-          pkg.version = versionParts.join('.') + '-' + Date.now(); // Añade timestamp
-          fs.writeFileSync(path, JSON.stringify(pkg, null, 2));
+          versionParts[2] = parseInt(versionParts[2]) + 1;
+          const newVersion = versionParts.join('.');
+          console.log('New Version:', newVersion);
+          pkg.version = newVersion;
+          fs.writeFileSync(packagePath, JSON.stringify(pkg, null, 2));
+          
+          // Leer y modificar package-lock.json
+          const pkgLock = require(packageLockPath);
+          pkgLock.version = newVersion;
+          fs.writeFileSync(packageLockPath, JSON.stringify(pkgLock, null, 2));
           "
-
+          
+          # Verificar si el archivo android/app/build.gradle existe
+          if [[ ! -f "android/app/build.gradle" ]]; then
+            echo "Error: android/app/build.gradle does not exist" >&2; exit 1
+          fi
+          
+          # Imprimir las líneas que contienen versionCode y versionName
+          echo "Lines containing versionCode and versionName from android/app/build.gradle:"
+          grep -E "versionCode|versionName" android/app/build.gradle
+          
+          # Intentar extraer e incrementar versionCode y modificar versionName en android/app/build.gradle
+          newVersionCode=$(grep -E "^[ \t]*versionCode [0-9]+" android/app/build.gradle | awk '{print $2}')
+          echo "Extracted versionCode: $newVersionCode"
+          
+          if ! [[ $newVersionCode =~ ^[0-9]+$ ]] ; then
+            echo "Error: versionCode not found or not a number" >&2; exit 1
+          fi
+          
+          let "newVersionCode++"
+          echo "Incremented versionCode: $newVersionCode"
+          
+          # Usar sed y mover el archivo temporal al original
+          sed "s/^[ \t]*versionCode [0-9]*/    versionCode $newVersionCode/" android/app/build.gradle > android/app/build.gradle.tmp && mv android/app/build.gradle.tmp android/app/build.gradle
+          sed "s/versionName \"[^\"]*\"/versionName \"$(node -p "require('./package.json').version")\"/" android/app/build.gradle > android/app/build.gradle.tmp && mv android/app/build.gradle.tmp android/app/build.gradle
+      
       # Commit and push changes to github
       - uses: stefanzweifel/git-auto-commit-action@v4
 
