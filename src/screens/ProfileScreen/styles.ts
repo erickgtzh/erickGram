@@ -14,7 +14,7 @@ export default StyleSheet.create({
     alignItems: 'center',
     marginVertical: 10,
   },
-  avatar: {width: 100, aspectRatio: 1, borderRadius: 50},
+  avatar: {width: 100, height: 100, borderRadius: 50},
   numberContainer: {alignItems: 'center'},
   numberText: {
     fontSize: fonts.size.lg,

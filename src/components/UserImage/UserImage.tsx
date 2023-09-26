@@ -1,21 +1,32 @@
 import {StyleSheet, Image} from 'react-native';
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Storage} from 'aws-amplify';
 import {DEFAULT_USER_IMAGE} from '../../config';
 
 const UserImage = ({imageKey, style}: {imageKey?: string; style?: {}}) => {
-  const [imageUri, setImageUri] = React.useState<string | null>(null);
+  const [imageUri, setImageUri] = useState<string | null>(null);
+  const [hasError, setHasError] = useState<boolean>(false);
 
   useEffect(() => {
     if (imageKey) {
-      Storage.get(imageKey).then(setImageUri);
+      Storage.get(imageKey)
+        .then(setImageUri)
+        .catch(error => {
+          console.error('Error getting the image: ', error);
+          setHasError(true);
+        });
+    } else {
+      setImageUri(DEFAULT_USER_IMAGE);
     }
   }, [imageKey]);
 
   return (
     <Image
-      source={{uri: imageUri || DEFAULT_USER_IMAGE}}
+      source={{
+        uri: hasError ? DEFAULT_USER_IMAGE : imageUri || DEFAULT_USER_IMAGE,
+      }}
       style={style ? style : styles.avatar}
+      onError={() => setHasError(true)}
     />
   );
 };

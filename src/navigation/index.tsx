@@ -6,7 +6,7 @@ import CommentsScreen from '../screens/CommentsScreen/CommentsScreen';
 import {RootNavigatorParamList} from '../types/navigation';
 import AuthStackNavigator from './AuthStackNavigator';
 import {useAuthContext} from '../contexts/AuthContext';
-import {ActivityIndicator, View} from 'react-native';
+import {ActivityIndicator, StyleSheet, View} from 'react-native';
 import {useQuery} from '@apollo/client';
 import {getUser} from './queries';
 import {GetUserQuery, GetUserQueryVariables} from '../API';
@@ -44,16 +44,12 @@ const Navigation = () => {
 
   const userData = data?.getUser;
 
-  if (loading || user === undefined) {
-    <View
-      style={{
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        paddingTop: 20,
-      }}>
-      <ActivityIndicator />
-    </View>;
+  if (user === undefined || loading) {
+    return (
+      <View style={styles.loader}>
+        <ActivityIndicator />
+      </View>
+    );
   }
 
   let stackScreens = null;
@@ -95,5 +91,14 @@ const Navigation = () => {
     </NavigationContainer>
   );
 };
+
+const styles = StyleSheet.create({
+  loader: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingTop: 20,
+  },
+});
 
 export default Navigation;

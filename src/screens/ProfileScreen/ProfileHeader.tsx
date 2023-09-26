@@ -59,7 +59,6 @@ const ProfileHeader = ({user}: IProfileHeader) => {
   )?.[0];
 
   useEffect(() => {
-    console.log('si entra');
     navigation.setOptions({
       title: user?.username || 'Profile',
     });
