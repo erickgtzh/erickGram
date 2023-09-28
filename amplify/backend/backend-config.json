@@ -72,6 +72,21 @@
     }
   },
   "function": {
+    "FeedGenerator": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "GraphQLAPIIdOutput",
+            "GraphQLAPIEndpointOutput"
+          ],
+          "category": "api",
+          "resourceName": "Instagram"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
     "InstagramPostConfirmation": {
       "build": true,
       "dependsOn": [
@@ -104,6 +119,22 @@
     }
   },
   "parameters": {
+    "AMPLIFY_function_FeedGenerator_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "FeedGenerator"
+        }
+      ]
+    },
+    "AMPLIFY_function_FeedGenerator_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "FeedGenerator"
+        }
+      ]
+    },
     "AMPLIFY_function_InstagramPostConfirmation_deploymentBucketName": {
       "usedBy": [
         {

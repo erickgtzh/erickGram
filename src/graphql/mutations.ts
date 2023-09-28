@@ -2267,3 +2267,216 @@ export const deleteUserFollow = /* GraphQL */ `mutation DeleteUserFollow(
   APITypes.DeleteUserFollowMutationVariables,
   APITypes.DeleteUserFollowMutation
 >;
+export const createUserFeedPost = /* GraphQL */ `mutation CreateUserFeedPost(
+  $input: CreateUserFeedPostInput!
+  $condition: ModelUserFeedPostConditionInput
+) {
+  createUserFeedPost(input: $input, condition: $condition) {
+    id
+    userID
+    postID
+    postCreatedAt
+    postOwnerID
+    Post {
+      id
+      createdAt
+      type
+      description
+      location
+      image
+      images
+      video
+      nofComments
+      nofLikes
+      userID
+      User {
+        id
+        name
+        email
+        username
+        bio
+        website
+        nofPosts
+        nofFollowers
+        nofFollowings
+        image
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        owner
+        __typename
+      }
+      Likes {
+        nextToken
+        startedAt
+        __typename
+      }
+      Comments {
+        nextToken
+        startedAt
+        __typename
+      }
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      owner
+      __typename
+    }
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.CreateUserFeedPostMutationVariables,
+  APITypes.CreateUserFeedPostMutation
+>;
+export const updateUserFeedPost = /* GraphQL */ `mutation UpdateUserFeedPost(
+  $input: UpdateUserFeedPostInput!
+  $condition: ModelUserFeedPostConditionInput
+) {
+  updateUserFeedPost(input: $input, condition: $condition) {
+    id
+    userID
+    postID
+    postCreatedAt
+    postOwnerID
+    Post {
+      id
+      createdAt
+      type
+      description
+      location
+      image
+      images
+      video
+      nofComments
+      nofLikes
+      userID
+      User {
+        id
+        name
+        email
+        username
+        bio
+        website
+        nofPosts
+        nofFollowers
+        nofFollowings
+        image
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        owner
+        __typename
+      }
+      Likes {
+        nextToken
+        startedAt
+        __typename
+      }
+      Comments {
+        nextToken
+        startedAt
+        __typename
+      }
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      owner
+      __typename
+    }
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.UpdateUserFeedPostMutationVariables,
+  APITypes.UpdateUserFeedPostMutation
+>;
+export const deleteUserFeedPost = /* GraphQL */ `mutation DeleteUserFeedPost(
+  $input: DeleteUserFeedPostInput!
+  $condition: ModelUserFeedPostConditionInput
+) {
+  deleteUserFeedPost(input: $input, condition: $condition) {
+    id
+    userID
+    postID
+    postCreatedAt
+    postOwnerID
+    Post {
+      id
+      createdAt
+      type
+      description
+      location
+      image
+      images
+      video
+      nofComments
+      nofLikes
+      userID
+      User {
+        id
+        name
+        email
+        username
+        bio
+        website
+        nofPosts
+        nofFollowers
+        nofFollowings
+        image
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        owner
+        __typename
+      }
+      Likes {
+        nextToken
+        startedAt
+        __typename
+      }
+      Comments {
+        nextToken
+        startedAt
+        __typename
+      }
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      owner
+      __typename
+    }
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.DeleteUserFeedPostMutationVariables,
+  APITypes.DeleteUserFeedPostMutation
+>;

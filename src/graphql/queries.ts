@@ -2344,3 +2344,340 @@ export const userFollowers = /* GraphQL */ `query UserFollowers(
   APITypes.UserFollowersQueryVariables,
   APITypes.UserFollowersQuery
 >;
+export const getUserFeedPost = /* GraphQL */ `query GetUserFeedPost($id: ID!) {
+  getUserFeedPost(id: $id) {
+    id
+    userID
+    postID
+    postCreatedAt
+    postOwnerID
+    Post {
+      id
+      createdAt
+      type
+      description
+      location
+      image
+      images
+      video
+      nofComments
+      nofLikes
+      userID
+      User {
+        id
+        name
+        email
+        username
+        bio
+        website
+        nofPosts
+        nofFollowers
+        nofFollowings
+        image
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        owner
+        __typename
+      }
+      Likes {
+        nextToken
+        startedAt
+        __typename
+      }
+      Comments {
+        nextToken
+        startedAt
+        __typename
+      }
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      owner
+      __typename
+    }
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.GetUserFeedPostQueryVariables,
+  APITypes.GetUserFeedPostQuery
+>;
+export const listUserFeedPosts = /* GraphQL */ `query ListUserFeedPosts(
+  $filter: ModelUserFeedPostFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listUserFeedPosts(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      userID
+      postID
+      postCreatedAt
+      postOwnerID
+      Post {
+        id
+        createdAt
+        type
+        description
+        location
+        image
+        images
+        video
+        nofComments
+        nofLikes
+        userID
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        owner
+        __typename
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      owner
+      __typename
+    }
+    nextToken
+    startedAt
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListUserFeedPostsQueryVariables,
+  APITypes.ListUserFeedPostsQuery
+>;
+export const syncUserFeedPosts = /* GraphQL */ `query SyncUserFeedPosts(
+  $filter: ModelUserFeedPostFilterInput
+  $limit: Int
+  $nextToken: String
+  $lastSync: AWSTimestamp
+) {
+  syncUserFeedPosts(
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+    lastSync: $lastSync
+  ) {
+    items {
+      id
+      userID
+      postID
+      postCreatedAt
+      postOwnerID
+      Post {
+        id
+        createdAt
+        type
+        description
+        location
+        image
+        images
+        video
+        nofComments
+        nofLikes
+        userID
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        owner
+        __typename
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      owner
+      __typename
+    }
+    nextToken
+    startedAt
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.SyncUserFeedPostsQueryVariables,
+  APITypes.SyncUserFeedPostsQuery
+>;
+export const userFeed = /* GraphQL */ `query UserFeed(
+  $userID: ID!
+  $postCreatedAt: ModelStringKeyConditionInput
+  $sortDirection: ModelSortDirection
+  $filter: ModelUserFeedPostFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  userFeed(
+    userID: $userID
+    postCreatedAt: $postCreatedAt
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      userID
+      postID
+      postCreatedAt
+      postOwnerID
+      Post {
+        id
+        createdAt
+        type
+        description
+        location
+        image
+        images
+        video
+        nofComments
+        nofLikes
+        userID
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        owner
+        __typename
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      owner
+      __typename
+    }
+    nextToken
+    startedAt
+    __typename
+  }
+}
+` as GeneratedQuery<APITypes.UserFeedQueryVariables, APITypes.UserFeedQuery>;
+export const userFeedPostsByPostID = /* GraphQL */ `query UserFeedPostsByPostID(
+  $postID: ID!
+  $sortDirection: ModelSortDirection
+  $filter: ModelUserFeedPostFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  userFeedPostsByPostID(
+    postID: $postID
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      userID
+      postID
+      postCreatedAt
+      postOwnerID
+      Post {
+        id
+        createdAt
+        type
+        description
+        location
+        image
+        images
+        video
+        nofComments
+        nofLikes
+        userID
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        owner
+        __typename
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      owner
+      __typename
+    }
+    nextToken
+    startedAt
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.UserFeedPostsByPostIDQueryVariables,
+  APITypes.UserFeedPostsByPostIDQuery
+>;
+export const userFeedPostsByPostOwnerID = /* GraphQL */ `query UserFeedPostsByPostOwnerID(
+  $postOwnerID: ID!
+  $sortDirection: ModelSortDirection
+  $filter: ModelUserFeedPostFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  userFeedPostsByPostOwnerID(
+    postOwnerID: $postOwnerID
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      userID
+      postID
+      postCreatedAt
+      postOwnerID
+      Post {
+        id
+        createdAt
+        type
+        description
+        location
+        image
+        images
+        video
+        nofComments
+        nofLikes
+        userID
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        owner
+        __typename
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      owner
+      __typename
+    }
+    nextToken
+    startedAt
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.UserFeedPostsByPostOwnerIDQueryVariables,
+  APITypes.UserFeedPostsByPostOwnerIDQuery
+>;

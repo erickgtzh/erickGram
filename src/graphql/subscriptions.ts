@@ -2401,3 +2401,216 @@ export const onDeleteUserFollow = /* GraphQL */ `subscription OnDeleteUserFollow
   APITypes.OnDeleteUserFollowSubscriptionVariables,
   APITypes.OnDeleteUserFollowSubscription
 >;
+export const onCreateUserFeedPost = /* GraphQL */ `subscription OnCreateUserFeedPost(
+  $filter: ModelSubscriptionUserFeedPostFilterInput
+  $owner: String
+) {
+  onCreateUserFeedPost(filter: $filter, owner: $owner) {
+    id
+    userID
+    postID
+    postCreatedAt
+    postOwnerID
+    Post {
+      id
+      createdAt
+      type
+      description
+      location
+      image
+      images
+      video
+      nofComments
+      nofLikes
+      userID
+      User {
+        id
+        name
+        email
+        username
+        bio
+        website
+        nofPosts
+        nofFollowers
+        nofFollowings
+        image
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        owner
+        __typename
+      }
+      Likes {
+        nextToken
+        startedAt
+        __typename
+      }
+      Comments {
+        nextToken
+        startedAt
+        __typename
+      }
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      owner
+      __typename
+    }
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnCreateUserFeedPostSubscriptionVariables,
+  APITypes.OnCreateUserFeedPostSubscription
+>;
+export const onUpdateUserFeedPost = /* GraphQL */ `subscription OnUpdateUserFeedPost(
+  $filter: ModelSubscriptionUserFeedPostFilterInput
+  $owner: String
+) {
+  onUpdateUserFeedPost(filter: $filter, owner: $owner) {
+    id
+    userID
+    postID
+    postCreatedAt
+    postOwnerID
+    Post {
+      id
+      createdAt
+      type
+      description
+      location
+      image
+      images
+      video
+      nofComments
+      nofLikes
+      userID
+      User {
+        id
+        name
+        email
+        username
+        bio
+        website
+        nofPosts
+        nofFollowers
+        nofFollowings
+        image
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        owner
+        __typename
+      }
+      Likes {
+        nextToken
+        startedAt
+        __typename
+      }
+      Comments {
+        nextToken
+        startedAt
+        __typename
+      }
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      owner
+      __typename
+    }
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnUpdateUserFeedPostSubscriptionVariables,
+  APITypes.OnUpdateUserFeedPostSubscription
+>;
+export const onDeleteUserFeedPost = /* GraphQL */ `subscription OnDeleteUserFeedPost(
+  $filter: ModelSubscriptionUserFeedPostFilterInput
+  $owner: String
+) {
+  onDeleteUserFeedPost(filter: $filter, owner: $owner) {
+    id
+    userID
+    postID
+    postCreatedAt
+    postOwnerID
+    Post {
+      id
+      createdAt
+      type
+      description
+      location
+      image
+      images
+      video
+      nofComments
+      nofLikes
+      userID
+      User {
+        id
+        name
+        email
+        username
+        bio
+        website
+        nofPosts
+        nofFollowers
+        nofFollowings
+        image
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        owner
+        __typename
+      }
+      Likes {
+        nextToken
+        startedAt
+        __typename
+      }
+      Comments {
+        nextToken
+        startedAt
+        __typename
+      }
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      owner
+      __typename
+    }
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnDeleteUserFeedPostSubscriptionVariables,
+  APITypes.OnDeleteUserFeedPostSubscription
+>;
