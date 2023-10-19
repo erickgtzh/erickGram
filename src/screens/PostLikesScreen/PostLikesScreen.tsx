@@ -6,7 +6,7 @@ import {
   LikesForPostByUserQuery,
   LikesForPostByUserQueryVariables,
 } from '../../API';
-import ApiErrorMessage from '../../components/ApiErrorMessage/ApiErrorMessage';
+import ApiErrorMessage from '../../components/ApiErrorMessage';
 import UserListItem from '../../components/UserListItem/UserListItem';
 import {useRoute} from '@react-navigation/native';
 import {PostLikestRouteProp} from '../../types/navigation';

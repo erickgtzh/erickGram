@@ -3,7 +3,7 @@ import React from 'react';
 import UserListItem from '../../components/UserListItem/UserListItem';
 import {listUsers} from './queries';
 import {useQuery} from '@apollo/client';
-import ApiErrorMessage from '../../components/ApiErrorMessage/ApiErrorMessage';
+import ApiErrorMessage from '../../components/ApiErrorMessage';
 import {ListUsersQuery, ListUsersQueryVariables} from '../../API';
 
 const UserSearchScreen = () => {

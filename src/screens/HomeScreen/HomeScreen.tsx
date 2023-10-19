@@ -14,7 +14,7 @@ import {
   UserFeedQuery,
   UserFeedQueryVariables,
 } from '../../API';
-import ApiErrorMessage from '../../components/ApiErrorMessage/ApiErrorMessage';
+import ApiErrorMessage from '../../components/ApiErrorMessage';
 import {colors} from '../../theme/colors';
 import {useAuthContext} from '../../contexts/AuthContext';
 

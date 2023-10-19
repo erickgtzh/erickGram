@@ -21,7 +21,7 @@ import {
   UpdatePostMutationVariables,
 } from '../../API';
 import {getPost, updatePost} from './queries';
-import ApiErrorMessage from '../../components/ApiErrorMessage/ApiErrorMessage';
+import ApiErrorMessage from '../../components/ApiErrorMessage';
 
 const UpdatePostScreen = () => {
   const [description, setDescription] = useState('');

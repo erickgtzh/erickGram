@@ -3,7 +3,7 @@ import React from 'react';
 import {useQuery} from '@apollo/client';
 import {UserFollowersQuery, UserFollowersQueryVariables} from '../../API';
 import {userFollowers} from './queries';
-import ApiErrorMessage from '../../components/ApiErrorMessage/ApiErrorMessage';
+import ApiErrorMessage from '../../components/ApiErrorMessage';
 import UserListItem from '../../components/UserListItem/UserListItem';
 
 interface UserFollowersScreenProps {

@@ -6,6 +6,7 @@ export type RootNavigatorParamList = {
   Auth: undefined;
   Home: undefined;
   Comments: {postId: string};
+  Post: {id: string};
   EditProfile: undefined;
 };
 

@@ -3,13 +3,21 @@ import {Alert} from 'react-native';
 import {
   CreateCommentMutation,
   CreateCommentMutationVariables,
+  CreateNotificationMutation,
+  CreateNotificationMutationVariables,
   GetPostQuery,
   GetPostQueryVariables,
   UpdatePostMutation,
   UpdatePostMutationVariables,
 } from '../../API';
 import {useAuthContext} from '../../contexts/AuthContext';
-import {createComment, updatePost, getPost} from './queries';
+import {
+  createComment,
+  updatePost,
+  getPost,
+  createNotification,
+} from './queries';
+import {NotificationTypes} from '../../models';
 
 const useCommentsService = (postId: string) => {
   const {userId} = useAuthContext();
@@ -29,6 +37,11 @@ const useCommentsService = (postId: string) => {
     CreateCommentMutation,
     CreateCommentMutationVariables
   >(createComment);
+
+  const [doCreateNotification] = useMutation<
+    CreateNotificationMutation,
+    CreateNotificationMutationVariables
+  >(createNotification);
 
   const incrementNofComments = (amount: 1 | -1) => {
     if (!post) {
@@ -51,6 +64,7 @@ const useCommentsService = (postId: string) => {
       Alert.alert('Failed to load post. Try again later');
       return;
     }
+
     try {
       await doCreateComment({
         variables: {
@@ -62,8 +76,25 @@ const useCommentsService = (postId: string) => {
           },
         },
       });
+
+      await doCreateNotification({
+        variables: {
+          input: {
+            type: NotificationTypes.NEW_COMMENT,
+            userId: post.userID,
+            actorId: userId,
+            readAt: 0,
+            notificationPostId: post.id,
+          },
+        },
+      }).catch(error => {
+        console.error('doCreateNotification Error:', error);
+        throw error;
+      });
+
       incrementNofComments(1);
     } catch (e) {
+      console.error('Error in onCreateComment:', e); // Debug line
       Alert.alert('Error submitting the comment', (e as Error).message);
     }
   };

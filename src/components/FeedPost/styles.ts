@@ -7,9 +7,9 @@ export default StyleSheet.create({
     flex: 1,
     backgroundColor: colors.white,
     borderRadius: 10,
-    marginTop: 2.5,
-    marginHorizontal: 2.5,
-    marginBottom: 4,
+    marginTop: 5,
+    marginHorizontal: 6,
+    marginBottom: 3,
   },
   image: {width: '100%', aspectRatio: 1},
   header: {

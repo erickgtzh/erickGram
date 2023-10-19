@@ -1,9 +1,10 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import HomeScreen from '../screens/HomeScreen/HomeScreen';
+import NotificationsScreen from '../screens/NotificationsScreen/NotificationScreen';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 import {colors} from '../theme/colors';
 import HomeStackNavigator from './HomeStackNavigator';
 import ProfileStackNavigator from './ProfileStackNavigator';
@@ -32,7 +33,7 @@ const UploadIcon: React.FC<IconProps> = ({color, size}) => (
   />
 );
 const NotificationsIcon: React.FC<IconProps> = ({color, size}) => (
-  <MaterialIcons name="notifications" size={size} color={color} />
+  <AntDesign name="hearto" size={size} color={color} />
 );
 const ProfileIcon: React.FC<IconProps> = ({color, size}) => (
   <FontAwesome name="user-circle-o" size={size} color={color} />
@@ -72,7 +73,7 @@ const BottomTabNavigator = () => {
       />
       <Tab.Screen
         name="Notifications"
-        component={HomeScreen}
+        component={NotificationsScreen}
         options={{
           tabBarIcon: NotificationsIcon,
         }}

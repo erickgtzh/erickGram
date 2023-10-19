@@ -43,8 +43,8 @@ const Comment = ({
             <Text style={styles.footerText}>
               {dayjs(comment?.createdAt).fromNow()}
             </Text>
-            <Text style={styles.footerText}>2x</Text>
-            <Text style={styles.footerText}>Reply</Text>
+            {/* <Text style={styles.footerText}>2x</Text> */}
+            {/* <Text style={styles.footerText}>Reply</Text> */}
           </View>
         )}
       </View>

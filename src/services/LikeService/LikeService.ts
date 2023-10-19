@@ -12,11 +12,13 @@ import {
 } from '../../API';
 import {
   createLike,
+  createNotification,
   deleteLike,
   likesForPostByUser,
   updatePost,
 } from './queries';
 import {useAuthContext} from '../../contexts/AuthContext';
+import {NotificationTypes} from '../../models';
 
 const useLikeService = (post: Post) => {
   const {userId} = useAuthContext();
@@ -51,6 +53,18 @@ const useLikeService = (post: Post) => {
     DeleteUserMutationVariables
   >(deleteLike);
 
+  const [doCreateNotification] = useMutation(createNotification, {
+    variables: {
+      input: {
+        type: NotificationTypes.NEW_LIKE,
+        userId: post.userID,
+        actorId: userId,
+        readAt: 0,
+        notificationPostId: post.id,
+      },
+    },
+  });
+
   const userLike = usersLikeData?.likesForPostByUser?.items?.filter(
     like => !like?._deleted,
   )?.[0];
@@ -67,9 +81,22 @@ const useLikeService = (post: Post) => {
     });
   };
 
-  const onAddLike = () => {
-    doCreateLike();
-    incrementNofLikes(1);
+  const onAddLike = async () => {
+    try {
+      await doCreateLike().catch(error => {
+        console.error('doCreateLike Error:', error);
+        throw error;
+      });
+
+      await doCreateNotification().catch(error => {
+        console.error('doCreateNotification Error:', error);
+        throw error;
+      });
+
+      incrementNofLikes(1);
+    } catch (error) {
+      console.error('onAddLike Error:', error);
+    }
   };
 
   const onDeleteLike = () => {
