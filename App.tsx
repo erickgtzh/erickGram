@@ -9,6 +9,7 @@ import InAppBrowser from 'react-native-inappbrowser-reborn';
 import {Linking} from 'react-native';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import Client from './src/apollo/Client';
+import NotificationContextProvider from './src/contexts/NotificationContext/NotificationContext';
 
 const urlOpener = async (url: string, redirectUrl: string) => {
   await InAppBrowser.isAvailable();
@@ -40,7 +41,9 @@ const App = () => {
       <MenuProvider>
         <AuthContextProvider>
           <Client>
-            <Navigation />
+            <NotificationContextProvider>
+              <Navigation />
+            </NotificationContextProvider>
           </Client>
         </AuthContextProvider>
       </MenuProvider>

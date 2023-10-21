@@ -93,7 +93,7 @@ enum NotificationTypes {
   NEW_COMMENT
 }
 
-type Notification @model @auth(rules: [{allow: private, operations: [read]}, {allow: owner}]) {
+type Notification @model @auth(rules: [{allow: private}]) {
   id: ID!
   createdAt: AWSDateTime!
   readAt: AWSTimestamp!

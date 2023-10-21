@@ -24,7 +24,7 @@
         "Instagram": {},
         "UserFollowTrigger": {
           "deploymentBucketName": "amplify-instagram-dev-152930-deployment",
-          "s3Key": "amplify-builds/UserFollowTrigger-32474f584d7152506a78-build.zip"
+          "s3Key": "amplify-builds/UserFollowTrigger-76686b686646556a5665-build.zip"
         },
         "FeedGenerator": {
           "deploymentBucketName": "amplify-instagram-dev-152930-deployment",

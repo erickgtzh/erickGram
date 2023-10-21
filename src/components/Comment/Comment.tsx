@@ -1,10 +1,9 @@
-import {View, Text, StyleSheet, Image, Pressable} from 'react-native';
+import {View, Text, StyleSheet, Pressable} from 'react-native';
 import React from 'react';
 import {colors} from '../../theme/colors';
 import fonts from '../../theme/fonts';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {Comment as CommentType} from '../../API';
-import {DEFAULT_USER_IMAGE} from '../../config';
 import useCommentLikeService from '../../services/LikeCommentService';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import dayjs from 'dayjs';

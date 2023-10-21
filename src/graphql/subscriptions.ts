@@ -1855,7 +1855,6 @@ export const onCreateUser = /* GraphQL */ `subscription OnCreateUser(
         _deleted
         _lastChangedAt
         notificationPostId
-        owner
         __typename
       }
       nextToken
@@ -2015,7 +2014,6 @@ export const onUpdateUser = /* GraphQL */ `subscription OnUpdateUser(
         _deleted
         _lastChangedAt
         notificationPostId
-        owner
         __typename
       }
       nextToken
@@ -2175,7 +2173,6 @@ export const onDeleteUser = /* GraphQL */ `subscription OnDeleteUser(
         _deleted
         _lastChangedAt
         notificationPostId
-        owner
         __typename
       }
       nextToken
@@ -2806,9 +2803,8 @@ export const onDeleteUserFeedPost = /* GraphQL */ `subscription OnDeleteUserFeed
 >;
 export const onCreateNotification = /* GraphQL */ `subscription OnCreateNotification(
   $filter: ModelSubscriptionNotificationFilterInput
-  $owner: String
 ) {
-  onCreateNotification(filter: $filter, owner: $owner) {
+  onCreateNotification(filter: $filter) {
     id
     createdAt
     readAt
@@ -2979,7 +2975,6 @@ export const onCreateNotification = /* GraphQL */ `subscription OnCreateNotifica
     _deleted
     _lastChangedAt
     notificationPostId
-    owner
     __typename
   }
 }
@@ -2989,9 +2984,8 @@ export const onCreateNotification = /* GraphQL */ `subscription OnCreateNotifica
 >;
 export const onUpdateNotification = /* GraphQL */ `subscription OnUpdateNotification(
   $filter: ModelSubscriptionNotificationFilterInput
-  $owner: String
 ) {
-  onUpdateNotification(filter: $filter, owner: $owner) {
+  onUpdateNotification(filter: $filter) {
     id
     createdAt
     readAt
@@ -3162,7 +3156,6 @@ export const onUpdateNotification = /* GraphQL */ `subscription OnUpdateNotifica
     _deleted
     _lastChangedAt
     notificationPostId
-    owner
     __typename
   }
 }
@@ -3172,9 +3165,8 @@ export const onUpdateNotification = /* GraphQL */ `subscription OnUpdateNotifica
 >;
 export const onDeleteNotification = /* GraphQL */ `subscription OnDeleteNotification(
   $filter: ModelSubscriptionNotificationFilterInput
-  $owner: String
 ) {
-  onDeleteNotification(filter: $filter, owner: $owner) {
+  onDeleteNotification(filter: $filter) {
     id
     createdAt
     readAt
@@ -3345,7 +3337,6 @@ export const onDeleteNotification = /* GraphQL */ `subscription OnDeleteNotifica
     _deleted
     _lastChangedAt
     notificationPostId
-    owner
     __typename
   }
 }

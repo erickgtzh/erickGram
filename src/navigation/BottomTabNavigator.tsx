@@ -4,13 +4,13 @@ import NotificationsScreen from '../screens/NotificationsScreen/NotificationScre
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import AntDesign from 'react-native-vector-icons/AntDesign';
 import {colors} from '../theme/colors';
 import HomeStackNavigator from './HomeStackNavigator';
 import ProfileStackNavigator from './ProfileStackNavigator';
 import {BottomTabNavigatorParamList} from '../types/navigation';
 import SearchTabNavigator from './SearchTabNavigator';
 import UploadStackNavigator from './UploadStackNavigator';
+import {useNotificationContext} from '../contexts/NotificationContext/NotificationContext';
 
 const Tab = createBottomTabNavigator<BottomTabNavigatorParamList>();
 
@@ -33,13 +33,14 @@ const UploadIcon: React.FC<IconProps> = ({color, size}) => (
   />
 );
 const NotificationsIcon: React.FC<IconProps> = ({color, size}) => (
-  <AntDesign name="hearto" size={size} color={color} />
+  <MaterialCommunityIcons name="heart-outline" size={size} color={color} />
 );
 const ProfileIcon: React.FC<IconProps> = ({color, size}) => (
   <FontAwesome name="user-circle-o" size={size} color={color} />
 );
 
 const BottomTabNavigator = () => {
+  const {newNotifications} = useNotificationContext();
   return (
     <Tab.Navigator
       screenOptions={{
@@ -76,6 +77,7 @@ const BottomTabNavigator = () => {
         component={NotificationsScreen}
         options={{
           tabBarIcon: NotificationsIcon,
+          tabBarBadge: newNotifications || undefined,
         }}
       />
       <Tab.Screen
