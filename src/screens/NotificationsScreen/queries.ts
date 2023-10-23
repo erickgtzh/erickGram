@@ -24,6 +24,7 @@ export const userNotifications = gql`
         userId
         actorId
         readAt
+        notificationPostId
         Actor {
           id
           name
@@ -43,7 +44,6 @@ export const userNotifications = gql`
         _version
         _deleted
         _lastChangedAt
-        notificationPostId
       }
       nextToken
       startedAt

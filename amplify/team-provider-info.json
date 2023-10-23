@@ -19,7 +19,7 @@
       "function": {
         "InstagramPostConfirmation": {
           "deploymentBucketName": "amplify-instagram-dev-152930-deployment",
-          "s3Key": "amplify-builds/InstagramPostConfirmation-504b49496e434278424a-build.zip"
+          "s3Key": "amplify-builds/InstagramPostConfirmation-537a554535314f6f3252-build.zip"
         },
         "Instagram": {},
         "UserFollowTrigger": {
@@ -29,6 +29,10 @@
         "FeedGenerator": {
           "deploymentBucketName": "amplify-instagram-dev-152930-deployment",
           "s3Key": "amplify-builds/FeedGenerator-5a6f713372566f526b4f-build.zip"
+        },
+        "NotificationTrigger": {
+          "deploymentBucketName": "amplify-instagram-dev-152930-deployment",
+          "s3Key": "amplify-builds/NotificationTrigger-36496665537643315238-build.zip"
         }
       },
       "storage": {
