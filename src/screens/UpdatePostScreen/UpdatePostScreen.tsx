@@ -30,7 +30,7 @@ const UpdatePostScreen = () => {
   const route = useRoute<UpdatePostRouteProp>();
   const {postId} = route.params;
 
-  const [doUpdatePost, {data: updateData, error: updateError}] = useMutation<
+  const [doUpdatePost, {error: updateError}] = useMutation<
     UpdatePostMutation,
     UpdatePostMutationVariables
   >(updatePost);

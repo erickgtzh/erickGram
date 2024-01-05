@@ -1,14 +1,9 @@
 import React from 'react';
 import {ActivityIndicator, View} from 'react-native';
-import {useRoute, useNavigation} from '@react-navigation/native';
+import {useRoute} from '@react-navigation/native';
 
 import ProfileHeader from './ProfileHeader';
-import {
-  UserProfileNavigationProp,
-  UserProfileRouteProp,
-  MyProfileNavigationProp,
-  MyProfileRouteProp,
-} from '../../types/navigation';
+import {UserProfileRouteProp, MyProfileRouteProp} from '../../types/navigation';
 import {useQuery} from '@apollo/client';
 import {getUser} from './queries';
 import ApiErrorMessage from '../../components/ApiErrorMessage';
@@ -20,9 +15,7 @@ const ListHeaderComponent = ({user}: User) => <ProfileHeader user={user} />;
 
 const ProfileScreen = () => {
   const route = useRoute<UserProfileRouteProp | MyProfileRouteProp>();
-  const navigation = useNavigation<
-    UserProfileNavigationProp | MyProfileNavigationProp
-  >();
+
   const {userId: authUserId} = useAuthContext();
 
   const userId = route.params?.userId || authUserId;

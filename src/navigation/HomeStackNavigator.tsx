@@ -3,7 +3,6 @@ import React from 'react';
 import logo from '../assets/images/logo.png';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import HomeScreen from '../screens/HomeScreen/HomeScreen';
-import ProfileScreen from '../screens/ProfileScreen/ProfileScreen';
 import {HomeStackNavigatorParamList} from '../types/navigation';
 import UpdatePostScreen from '../screens/UpdatePostScreen/UpdatePostScreen';
 import PostLikesScreen from '../screens/PostLikesScreen/PostLikesScreen';

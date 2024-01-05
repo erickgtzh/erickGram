@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, TextInput, StyleSheet, TextStyle} from 'react-native';
+import {View, Text, TextInput, StyleSheet} from 'react-native';
 import {Control, Controller, Path} from 'react-hook-form';
 import {colors} from '../../../../theme/colors';
 
