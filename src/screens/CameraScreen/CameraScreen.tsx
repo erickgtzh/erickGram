@@ -1,17 +1,22 @@
-import {Pressable, StyleSheet, Text, View} from 'react-native';
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useRef, useState, useEffect} from 'react';
+import {
+  ActivityIndicator,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import {
   Camera,
-  CameraPictureOptions,
   CameraType,
   FlashMode,
+  CameraPictureOptions,
   CameraRecordingOptions,
   VideoQuality,
 } from 'expo-camera';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {colors} from '../../theme/colors';
-import {useNavigation} from '@react-navigation/native';
-import {CreateNavigationProp} from '../../types/navigation';
+import {useNavigation, useFocusEffect} from '@react-navigation/native';
 import {launchImageLibrary} from 'react-native-image-picker';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
@@ -36,22 +41,34 @@ const CameraScreen = () => {
   const [isCameraReady, setIsCameraReady] = useState(false);
   const camera = useRef<Camera>(null);
   const [isRecording, setIsRecording] = useState(false);
-  const navigation = useNavigation<CreateNavigationProp>();
+  const [cameraKey, setCameraKey] = useState(Date.now());
+  const navigation = useNavigation();
   const insets = useSafeAreaInsets();
 
   useEffect(() => {
     const getPermission = async () => {
-      const cameraPermission = await Camera.requestCameraPermissionsAsync();
-      const microphonePermission =
+      const {status: cameraStatus} =
+        await Camera.requestCameraPermissionsAsync();
+      const {status: micStatus} =
         await Camera.requestMicrophonePermissionsAsync();
-
-      setHasPermissions(
-        cameraPermission.status === 'granted' &&
-          microphonePermission.status === 'granted',
-      );
+      setHasPermissions(cameraStatus === 'granted' && micStatus === 'granted');
     };
+
     getPermission();
   }, []);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      setCameraKey(Date.now());
+
+      return () => {
+        if (isRecording) {
+          camera.current?.stopRecording();
+          setIsRecording(false);
+        }
+      };
+    }, [isRecording]),
+  );
 
   const onOpenImageGallery = () => {
     launchImageLibrary(
@@ -65,7 +82,6 @@ const CameraScreen = () => {
               ? 'video'
               : 'image';
             params[field] = assets[0].uri;
-            assets[0].uri;
           } else if (assets.length > 1) {
             params.images = assets.map(asset => asset.uri) as string[];
           }
@@ -74,14 +90,6 @@ const CameraScreen = () => {
       },
     );
   };
-
-  if (hasPermissions === null) {
-    return <Text>Loading...</Text>;
-  }
-
-  if (hasPermissions === false) {
-    return <Text>No access to the camera</Text>;
-  }
 
   const flipCamera = () => {
     setCameraType(current =>
@@ -92,7 +100,7 @@ const CameraScreen = () => {
   const flipFlash = () => {
     const currentIndex = flashModes.indexOf(flash);
     const nextIndex =
-      currentIndex !== flashModes?.length - 1
+      currentIndex !== flashModes.length - 1
         ? flashModes[currentIndex + 1]
         : flashModes[0];
     setFlash(nextIndex);
@@ -140,6 +148,18 @@ const CameraScreen = () => {
     navigation.navigate('Create', {image: result.uri});
   };
 
+  if (hasPermissions === null) {
+    return (
+      <View style={{paddingTop: 20}}>
+        <ActivityIndicator />
+      </View>
+    );
+  }
+
+  if (hasPermissions === false) {
+    return <Text style={{color: colors.black}}>No access to the camera</Text>;
+  }
+
   return (
     <View style={styles.page}>
       <Camera
@@ -148,9 +168,15 @@ const CameraScreen = () => {
         ratio="4:3"
         onCameraReady={() => setIsCameraReady(true)}
         ref={camera}
+        key={cameraKey}
       />
-      <View style={[styles.buttonsContainer, {top: 10}]}>
-        <MaterialIcons name="close" size={30} color={colors.white} />
+      <View style={[styles.buttonsContainer, {top: insets.top + 10}]}>
+        <MaterialIcons
+          name="close"
+          size={30}
+          color={colors.white}
+          onPress={() => navigation.goBack()}
+        />
         <Pressable onPress={flipFlash}>
           <MaterialIcons
             name={flashModeToIcon[flash]}
@@ -160,7 +186,7 @@ const CameraScreen = () => {
         </Pressable>
         <MaterialIcons name="settings" size={30} color={colors.white} />
       </View>
-      <View style={[styles.buttonsContainer, {bottom: insets.top + 25}]}>
+      <View style={[styles.buttonsContainer, {bottom: insets.bottom + 25}]}>
         <MaterialIcons
           name="photo-library"
           size={30}
@@ -180,7 +206,6 @@ const CameraScreen = () => {
             />
           </Pressable>
         )}
-
         <Pressable onPress={flipCamera}>
           <MaterialIcons
             name="flip-camera-ios"
@@ -193,15 +218,16 @@ const CameraScreen = () => {
   );
 };
 
-export default CameraScreen;
-
 const styles = StyleSheet.create({
   page: {
     flex: 1,
     justifyContent: 'center',
     backgroundColor: colors.black,
   },
-  camera: {width: '100%', aspectRatio: 3 / 4},
+  camera: {
+    width: '100%',
+    aspectRatio: 3 / 4,
+  },
   buttonsContainer: {
     flexDirection: 'row',
     justifyContent: 'space-around',
@@ -215,3 +241,5 @@ const styles = StyleSheet.create({
     borderRadius: 75,
   },
 });
+
+export default CameraScreen;
