@@ -23,7 +23,7 @@ const httpLink = createHttpLink({
   uri: url,
 });
 
-const mergeList = (existing = {items: []}, incoming = {items: []}) => {
+export const mergeList = (existing = {items: []}, incoming = {items: []}) => {
   return {
     ...existing,
     ...incoming,
