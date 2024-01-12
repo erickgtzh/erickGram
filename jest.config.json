@@ -16,5 +16,8 @@
     ],
     "moduleNameMapper": {
         "\\.(jpg|jpeg|png|gif|webp|svg)$": "<rootDir>/fileMock.js"
-    }
+    },
+    "setupFilesAfterEnv": [
+        "<rootDir>/jest.setup.js"
+    ]
 }
