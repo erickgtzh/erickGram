@@ -109,7 +109,7 @@ const CreatePostScreen = () => {
       navigation.popToTop();
       navigation.navigate('HomeStack');
     } catch (err) {
-      console.log((err as Error).message);
+      Alert.alert('Error uploading the post', (err as Error).message);
       setIsSubmitting(false);
     }
   };

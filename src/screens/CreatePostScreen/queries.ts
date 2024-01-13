@@ -24,7 +24,6 @@ export const createPost = gql`
       _version
       _deleted
       _lastChangedAt
-      __typename
     }
   }
 `;
